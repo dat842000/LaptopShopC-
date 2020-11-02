@@ -58,11 +58,23 @@
     <Compile Include="frmCart.Designer.cs">
       <DependentUpon>frmCart.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMaintain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMaintain.Designer.cs">
       <DependentUpon>frmMaintain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRegister.Designer.cs">
+      <DependentUpon>frmRegister.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,8 +96,14 @@
     <EmbeddedResource Include="frmCart.resx">
       <DependentUpon>frmCart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMaintain.resx">
       <DependentUpon>frmMaintain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRegister.resx">
+      <DependentUpon>frmRegister.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -263,6 +263,7 @@
             this.lblProfile.TabIndex = 16;
             this.lblProfile.TabStop = true;
             this.lblProfile.Text = "Profile";
+            this.lblProfile.Visible = false;
             // 
             // lblLogout
             // 
@@ -273,6 +274,7 @@
             this.lblLogout.TabIndex = 16;
             this.lblLogout.TabStop = true;
             this.lblLogout.Text = "Logout";
+            this.lblLogout.Visible = false;
             // 
             // Form1
             // 

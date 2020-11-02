@@ -36,12 +36,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvProductManagement = new System.Windows.Forms.DataGridView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductManagement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,15 +110,15 @@
             this.textBox4.Size = new System.Drawing.Size(281, 104);
             this.textBox4.TabIndex = 1;
             // 
-            // dataGridView1
+            // dgvProductManagement
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(423, 577);
-            this.dataGridView1.TabIndex = 3;
+            this.dgvProductManagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductManagement.Location = new System.Drawing.Point(12, 12);
+            this.dgvProductManagement.Name = "dgvProductManagement";
+            this.dgvProductManagement.RowHeadersWidth = 51;
+            this.dgvProductManagement.RowTemplate.Height = 24;
+            this.dgvProductManagement.Size = new System.Drawing.Size(423, 577);
+            this.dgvProductManagement.TabIndex = 3;
             // 
             // pictureBox1
             // 
@@ -164,7 +164,7 @@
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvProductManagement);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox4);
@@ -175,7 +175,7 @@
             this.Controls.Add(this.label1);
             this.Name = "pnProducts";
             this.Text = "pnProdcuts";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductManagement)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -192,7 +192,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvProductManagement;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnUpdate;
