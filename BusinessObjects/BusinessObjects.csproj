@@ -45,6 +45,7 @@
     <Compile Include="Brand.cs" />
     <Compile Include="BusinessObject.cs" />
     <Compile Include="BusinessRules\BusinessRule.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
