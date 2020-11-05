@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,12 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoNet\Db.cs" />
+    <Compile Include="AdoNet\Extensions.cs" />
+    <Compile Include="AdoNet\ProductDao.cs" />
     <Compile Include="DaoFactories.cs" />
     <Compile Include="IBrandDao.cs" />
+    <Compile Include="IProductDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="AdoNet\" />
+    <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj">
+      <Project>{538336ac-74c5-40ad-89a2-a2406edbbcd6}</Project>
+      <Name>BusinessObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessObjects.BusinessRules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -11,7 +12,11 @@ namespace BusinessObjects
     {
         public Account()
         {
-            
+            AddRule(new ValidateID("AccountID"));
+
+            AddRule(new ValidateRequired("Email"));
+            AddRule(new ValidateLength("Email", 1, 100));
+            AddRule(new ValidateEmail("Email"));
         }
         public int AccountID { get; set; }
         public string Username { get; set; }

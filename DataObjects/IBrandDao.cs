@@ -9,6 +9,8 @@ namespace DataObjects
 {
     public interface IBrandDao
     {
-        List<Brand>
+        List<Brand> GetBrands();
+
+        //Brand GetBrandByProduct(int productId)
     }
 }

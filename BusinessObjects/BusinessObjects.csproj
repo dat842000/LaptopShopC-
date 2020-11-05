@@ -45,7 +45,17 @@
     <Compile Include="Brand.cs" />
     <Compile Include="BusinessObject.cs" />
     <Compile Include="BusinessRules\BusinessRule.cs" />
+    <Compile Include="BusinessRules\ValidateCompare.cs" />
+    <Compile Include="BusinessRules\ValidateEmail.cs" />
+    <Compile Include="BusinessRules\ValidateID.cs" />
+    <Compile Include="BusinessRules\ValidateLength.cs" />
+    <Compile Include="BusinessRules\ValidateRange.cs" />
+    <Compile Include="BusinessRules\ValidateRegex.cs" />
+    <Compile Include="BusinessRules\ValidateRequired.cs" />
+    <Compile Include="BusinessRules\ValidationDataType.cs" />
+    <Compile Include="BusinessRules\ValidationOperator.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OrderDetail.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

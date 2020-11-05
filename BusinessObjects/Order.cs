@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects
 {
-    class Order
+    public class Order : BusinessObject
     {
+        public int OrderID { get; set; }
+        public Product  Product { get; set; }//ProductID
+        public DateTime OrderDate { get; set; }
+        public int orderStatus { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
     }
 }
