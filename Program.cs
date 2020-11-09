@@ -16,7 +16,7 @@ namespace ProjectCsharp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMaintain());
+            Application.Run(new frmMainMenu());
         }
     }
 }

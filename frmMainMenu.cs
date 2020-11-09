@@ -10,22 +10,11 @@ using System.Windows.Forms;
 
 namespace ProjectCsharp
 {
-    public partial class Form1 : Form
+    public partial class frmMainMenu : Form
     {
-        public Form1()
+        public frmMainMenu()
         {
             InitializeComponent();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-        
-        private void btnCart_Click(object sender, EventArgs e)
-        {
-            frmCart fc = new frmCart();
-            fc.ShowDialog();
         }
     }
 }
