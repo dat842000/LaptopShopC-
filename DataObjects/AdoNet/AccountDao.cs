@@ -142,6 +142,15 @@ namespace DataObjects.AdoNet
                 "@Address", Account.Address
             };
         }
+
+        public List<Account> GetAccountsWithOrderStatistics(string sortExpression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAccount(Account account)
+        {
+            throw new NotImplementedException();
+        }
     }
-}
 }
