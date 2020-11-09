@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Business Layer", "3. Bus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObjects", "BusinessObjects\BusinessObjects.csproj", "{538336AC-74C5-40AD-89A2-A2406EDBBCD6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Service Layer", "2. Service Layer", "{511568D1-357A-495D-A611-3BA2F3395F97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionService", "ActionService\ActionService.csproj", "{487672A5-A342-4DD2-952E-F6BB9B16CAC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,10 @@ Global
 		{538336AC-74C5-40AD-89A2-A2406EDBBCD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{538336AC-74C5-40AD-89A2-A2406EDBBCD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{538336AC-74C5-40AD-89A2-A2406EDBBCD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{487672A5-A342-4DD2-952E-F6BB9B16CAC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{487672A5-A342-4DD2-952E-F6BB9B16CAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{487672A5-A342-4DD2-952E-F6BB9B16CAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{487672A5-A342-4DD2-952E-F6BB9B16CAC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +49,7 @@ Global
 		{455EA9C4-14ED-4072-BE9E-628C25C9187A} = {7C31461B-EE00-494D-9E6E-D29C84E91A5E}
 		{DA5A9AD3-2988-4E01-A318-11D8A8050D16} = {98C547A1-E556-4980-85CE-254AC20C2742}
 		{538336AC-74C5-40AD-89A2-A2406EDBBCD6} = {4C0DE38A-412B-4079-A84C-096C839623B8}
+		{487672A5-A342-4DD2-952E-F6BB9B16CAC2} = {511568D1-357A-495D-A611-3BA2F3395F97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72456848-9B09-4B0B-9136-03B88D57ADD8}

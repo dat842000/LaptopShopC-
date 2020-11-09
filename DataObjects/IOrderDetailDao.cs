@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace DataObjects
 {
-    public interface IBrandDao
+    public interface IOrderDetailDao
     {
-        List<Brand> GetBrands();
-
-        Brand GetBrandByProduct(int ProductID);
+        List<OrderDetail> GetOrderDetails(int orderId);
     }
 }

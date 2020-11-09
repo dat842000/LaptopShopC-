@@ -9,9 +9,9 @@ namespace BusinessObjects
     public class Order : BusinessObject
     {
         public int OrderID { get; set; }
-        public Product  Product { get; set; }//ProductID
         public DateTime OrderDate { get; set; }
-        public int orderStatus { get; set; }
+        public int OrderStatus { get; set; }
+        public Account Account { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
     }
 }

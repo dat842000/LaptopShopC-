@@ -115,6 +115,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="ActionService\ActionService.csproj">
+      <Project>{487672a5-a342-4dd2-952e-f6bb9b16cac2}</Project>
+      <Name>ActionService</Name>
+    </ProjectReference>
+    <ProjectReference Include="BusinessObjects\BusinessObjects.csproj">
+      <Project>{538336ac-74c5-40ad-89a2-a2406edbbcd6}</Project>
+      <Name>BusinessObjects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
