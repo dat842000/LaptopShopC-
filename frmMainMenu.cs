@@ -94,25 +94,30 @@ namespace ProjectCsharp
         private void btn_Shop_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
+            OpenChildForm(new frmShop());
         }
 
         private void btn_Cart_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
+            OpenChildForm(new frmCart());
         }
 
         private void btn_Order_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color3);
+            OpenChildForm(new frmOrder());
         }
         private void btn_History_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color4);
+            OpenChildForm(new frmHistory());
         }
 
         private void btn_Profile_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color5);
+            OpenChildForm(new frmLogin());
         }
 
         private void btn_Home_Click(object sender, EventArgs e)
