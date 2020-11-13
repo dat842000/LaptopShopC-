@@ -118,6 +118,13 @@ namespace ProjectCsharp
         {
             ActivateButton(sender, RGBColors.color5);
             OpenChildForm(new frmLogin());
+            using (var form = new frmLogin())
+            {
+                if(form.ShowDialog() == DialogResult.OK)
+                {
+                    
+                }
+            }
         }
 
         private void btn_Home_Click(object sender, EventArgs e)

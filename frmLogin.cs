@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProjectCsharp.Presenters;
+using ProjectCsharp.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,34 +12,47 @@ using System.Windows.Forms;
 
 namespace ProjectCsharp
 {
-    public partial class frmLogin : Form
+    public partial class frmLogin : Form, ILoginView
     {
+        private LoginPresenter loginPresenter;
+        private bool cancelClose;
         public frmLogin()
         {
             InitializeComponent();
+            this.Closing += frmLogin_FormClosing;
+            loginPresenter = new LoginPresenter(this);
         }
 
-        private void frmLogin_Load(object sender, EventArgs e)
+        public string Username
         {
-
+            get { return lblUsername.Text.Trim(); }
         }
-
-        private void label1_Click(object sender, EventArgs e)
+        public string Password
         {
-
+            get { return lblPassword.Text.Trim(); }
         }
-
-        private void label2_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                loginPresenter.Login();
+                this.Close();
+                
+            }
+            catch(ApplicationException ex)
+            {
+                MessageBox.Show(ex.Message, "Login failed");
+                cancelClose = true;
+            }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void frmLogin_FormClosing(object sender,CancelEventArgs e)
         {
-
+            e.Cancel = cancelClose;
+            cancelClose = false;
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void btnRegister_Click(object sender, EventArgs e)
         {
 
         }
