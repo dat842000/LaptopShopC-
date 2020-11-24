@@ -10,5 +10,8 @@ namespace ProjectCsharp.Views
     {
         string Username { get; }
         string Password { get; }
+        void OnLoginSuccess();
+        void OnLoginFailure(string error);
+       
     }
 }

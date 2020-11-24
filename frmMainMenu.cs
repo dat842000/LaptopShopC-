@@ -113,20 +113,34 @@ namespace ProjectCsharp
             ActivateButton(sender, RGBColors.color4);
             OpenChildForm(new frmHistory());
         }
+        private void CheckLogin()
+        {
+            if (status == LoginStatus.LoggedIn)
+            {
+                OpenChildForm(new frmUserProfile());
+            }
+            else
+            {
+                OpenChildForm(new frmLogin(this));
+            }
+        }
 
         private void btn_Profile_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color5);
-            OpenChildForm(new frmLogin());
-            using (var form = new frmLogin())
-            {
-                if(form.ShowDialog() == DialogResult.OK)
-                {
-                    
-                }
-            }
+            CheckLogin();
         }
-
+        public void OnLoginFailure(string errorMessage)
+        {
+            MessageBox.Show(errorMessage);
+            status = LoginStatus.LoggedOut;
+        }
+        public void OnLoginSuccess()
+        {
+            status = LoginStatus.LoggedIn;
+            CheckLogin();
+        }
+        
         private void btn_Home_Click(object sender, EventArgs e)
         {
 
@@ -165,6 +179,16 @@ namespace ProjectCsharp
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+        private enum LoginStatus
+        {
+            LoggedOut,
+            LoggedIn
+            
+        }
+        private LoginStatus status
+        {
+            get; set ;
         }
     }
 }

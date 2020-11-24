@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace ProjectCsharp
 {
-    public partial class UserProfile : Form
+    public partial class frmUserProfile : Form
     {
-        public UserProfile()
+        public frmUserProfile()
         {
             InitializeComponent();
-        }
-
-        private void UserProfile_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

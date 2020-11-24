@@ -16,8 +16,11 @@ namespace ProjectCsharp
     {
         private LoginPresenter loginPresenter;
         private bool cancelClose;
-        public frmLogin()
+        private frmMainMenu parent;
+
+        public frmLogin(frmMainMenu parent)
         {
+            this.parent = parent;
             InitializeComponent();
             this.Closing += frmLogin_FormClosing;
             loginPresenter = new LoginPresenter(this);
@@ -35,9 +38,7 @@ namespace ProjectCsharp
         {
             try
             {
-                loginPresenter.Login();
-                this.Close();
-                
+                loginPresenter.Login();              
             }
             catch(ApplicationException ex)
             {
@@ -56,5 +57,14 @@ namespace ProjectCsharp
         {
 
         }
+
+        public void OnLoginSuccess(){
+            parent.OnLoginSuccess();
+        }
+
+        public void OnLoginFailure(string errorMessage){
+            parent.OnLoginFailure(errorMessage);
+        }
+
     }
 }
