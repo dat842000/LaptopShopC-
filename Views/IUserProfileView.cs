@@ -8,5 +8,10 @@ namespace ProjectCsharp.Views
 {
     public interface IUserProfileView : IView
     {
+        string UserImg { get; set; }
+        string FullName { get; set; }
+        string Email { get; set; }
+        Boolean Gender { get; set; }
+        string Address { get; set; }
     }
 }

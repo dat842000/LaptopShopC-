@@ -94,12 +94,15 @@
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\Models\ProductModel.cs" />
+    <Compile Include="Models\Models\UserProfileModel.cs" />
+    <Compile Include="Presenters\CartPresenter.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\Presenter.cs" />
-    <Compile Include="Presenters\ProductPresenter.cs" />
     <Compile Include="Presenters\ProductsPresenter.cs" />
+    <Compile Include="Presenters\UserProfilePresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\ICartView.cs" />
     <Compile Include="Views\ILoginView.cs" />
     <Compile Include="Views\IProductsView.cs" />
     <Compile Include="Views\IProductView.cs" />
@@ -164,9 +167,11 @@
     <Content Include="Images\Acer Nitro 5.png" />
     <Content Include="Images\Hp Zbook 150 G3.png" />
     <Content Include="Images\Msi GL63.png" />
+    <Content Include="Images\UserProfileImg\DatNguyen.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\MainLogo.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

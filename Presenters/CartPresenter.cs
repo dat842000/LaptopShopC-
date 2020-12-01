@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace ProjectCsharp.Presenters
 {
-    public class ProductPresenter : Presenter<IProductView>
+    public class CartPresenter : Presenter<ICartView>
     {
-        public ProductPresenter(IProductView view) : base(view)
+        public CartPresenter(ICartView view) : base(view)
         {
         }
-
+        public void Display()
+        {
+        }
     }
 }

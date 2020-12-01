@@ -9,6 +9,7 @@ namespace ProjectCsharp.Models
     public interface IModel
     {
         bool Login(string username, string password);
+        UserProfileModel UserProfile();
         List<ProductModel> GetProducts();
     }
 }

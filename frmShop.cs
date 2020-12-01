@@ -16,7 +16,9 @@ namespace ProjectCsharp
     public partial class frmShop : Form, IProductsView
     {
         private ProductsPresenter productsPresenter;
-        private IList<ProductModel> products;
+        private List<ProductModel> productsList;
+        private List<ProductModel> CartProducts = new List<ProductModel>();
+        private string SelectedItem="";
         public frmShop()
         {
             InitializeComponent();
@@ -28,22 +30,26 @@ namespace ProjectCsharp
         ImageList imgListLarge;
 
 
-        public IList<ProductModel> Products
+        public List<ProductModel> Products
         {
+            get
+            {
+                return CartProducts;
+            }
             set
             {
-                products = value;
+                productsList = value;
             }
         }
 
-        void LoadImageList()
+        private void LoadImageList()
         {
             imgListLarge = new ImageList() { ImageSize = new Size(68,68)};
-            for (int i = 0; i < products.Count; i++) {
-                imgListLarge.Images.Add(new Bitmap(Application.StartupPath + "\\Images\\" + products.ElementAt(i).ImgUrl));
+            for (int i = 0; i < productsList.Count; i++) {
+                imgListLarge.Images.Add(new Bitmap(Application.StartupPath + "\\Images\\" + productsList.ElementAt(i).ImgUrl));
             }
         }
-        void LoadListView()
+        private void LoadListView()
         {
             LoadImageList();
             lsvShow.FullRowSelect = true;
@@ -53,13 +59,13 @@ namespace ProjectCsharp
             lsvShow.Columns.Add("Price");
             lsvShow.Columns.Add("Specs");
 
-            for(int i = 0; i < products.Count; i++)
+            for(int i = 0; i < productsList.Count; i++)
             {
                 ListViewItem Product = new ListViewItem();
-                Product.Text = products.ElementAt(i).ProductName;
+                Product.Text = productsList.ElementAt(i).ProductName;
                 Product.ImageIndex = i;
-                Product.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = products.ElementAt(i).UnitPrice.ToString() });
-                Product.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = products.ElementAt(i).Specs.ToString() });
+                Product.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = productsList.ElementAt(i).UnitPrice.ToString() });
+                Product.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = productsList.ElementAt(i).Specs.ToString() });
                 lsvShow.Items.Add(Product);
             }
 
@@ -78,6 +84,36 @@ namespace ProjectCsharp
         private void btn_Detail_Click(object sender, EventArgs e)
         {
             lsvShow.View = View.Details;
+        }
+
+        private void btn_Add_Click(object sender, EventArgs e)
+        {
+            if(SelectedItem != "")
+            {
+                for (int i = 0; i < productsList.Count; i++)
+                {
+                    if (SelectedItem.Equals(productsList.ElementAt(i).ProductName))
+                    {
+                        CartProducts.Add(productsList.ElementAt(i));
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("You have to selected an item");
+            }
+        }
+
+        private void lsvShow_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView lsv = sender as ListView;
+            SelectedItem = "";
+            if (lsv.SelectedItems.Count > 0)
+            {
+                ListViewItem item = lsv.SelectedItems[0];
+                SelectedItem = item.Text;
+            }
+
         }
     }
 }

@@ -24,6 +24,9 @@ namespace ProjectCsharp
             InitializeComponent();
             this.Closing += frmLogin_FormClosing;
             loginPresenter = new LoginPresenter(this);
+            //
+            lblUsername.Text = "admin";
+            lblPassword.Text = "secret";
         }
 
         public string Username

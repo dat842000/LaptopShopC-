@@ -25,6 +25,18 @@ namespace ProjectCsharp.Models
             }
             return Result;
         }
+        public UserProfileModel UserProfile()
+        {
+            UserProfileModel info = new UserProfileModel
+            {
+                UserImg = "DatNguyen.png",
+                FullName = "Nguyen Phuc Dat",
+                Email = "dnn8420@gmail.com",
+                Gender = true,
+                Address = "TP.BienHoa T.DongNai",
+            };
+            return info;
+        }
         public List<ProductModel> GetProducts()
         {
             List<ProductModel> listProduct = new List<ProductModel>();
@@ -35,6 +47,7 @@ namespace ProjectCsharp.Models
                 UnitPrice = 599.00f,
                 Specs = 2018,
                 ImgUrl = "Acer Nitro 5.png"
+
             };
             ProductModel p2 = new ProductModel
             {
@@ -52,9 +65,36 @@ namespace ProjectCsharp.Models
                 Specs = 2018,
                 ImgUrl = "Msi GL63.png"
             };
+            ProductModel p4 = new ProductModel
+            {
+                ProductID = 4,
+                ProductName = "LenovoIdeaPad",
+                UnitPrice = 879.00f,
+                Specs = 2018,
+                ImgUrl = "LenovoIdeaPad.png"
+            };
+            ProductModel p5 = new ProductModel
+            {
+                ProductID = 5,
+                ProductName = "Acer Swift 5",
+                UnitPrice = 1098.00f,
+                Specs = 2019,
+                ImgUrl = "Acer Swift 5.png"
+            };
+            ProductModel p6 = new ProductModel
+            {
+                ProductID = 5,
+                ProductName = "Asus TUF FX505DT",
+                UnitPrice = 850.00f,
+                Specs = 2019,
+                ImgUrl = "Asus TUF FX505DT.png"
+            };
             listProduct.Add(p1);
             listProduct.Add(p2);
             listProduct.Add(p3);
+            listProduct.Add(p4);
+            listProduct.Add(p5);
+            listProduct.Add(p6);
             return listProduct;
         }
     }
