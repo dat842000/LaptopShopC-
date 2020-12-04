@@ -28,6 +28,8 @@ namespace ProjectCsharp
         public string FullName { get => throw new NotImplementedException(); set { txt_FullName.Text = value; } }
         public string Email { get => throw new NotImplementedException(); set { txt_Email.Text = value; } }
         public bool Gender { get => throw new NotImplementedException(); set { ck_Gender.Checked = value; } }
+        public string Phone { get => throw new NotImplementedException(); set { txt_Phone.Text = value; } }
         public string Address { get => throw new NotImplementedException(); set { txt_Address.Text = value; } }
+
     }
 }

@@ -20,6 +20,7 @@ namespace ProjectCsharp.Presenters
             View.FullName = info.FullName;
             View.Email = info.Email;
             View.Gender = info.Gender;
+            View.Phone = info.Phone;
             View.Address = info.Address;
         }
     }

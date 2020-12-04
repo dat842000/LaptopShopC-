@@ -12,6 +12,7 @@ namespace ProjectCsharp.Views
         string ProductName { get; set; }
         float UnitPrice { get; set; }
         int Specs { get; set; }
+        int UnitInStock { get; set; }
         string ImgUrl { get; set; }
     }
 }

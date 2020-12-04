@@ -17,7 +17,7 @@ namespace ProjectCsharp
     {
         private ProductsPresenter productsPresenter;
         private List<ProductModel> productsList;
-        private List<ProductModel> CartProducts = new List<ProductModel>();
+        private List<OrderDetailModel> cartProducts;
         private string SelectedItem="";
         public frmShop()
         {
@@ -25,17 +25,23 @@ namespace ProjectCsharp
             productsPresenter = new ProductsPresenter(this);
             productsPresenter.Display();
             LoadListView();
-
+            productsPresenter.getCartProduct();
         }
         ImageList imgListLarge;
 
+        public List<OrderDetailModel> CartProducts
+        {
+            get {        
+                return cartProducts;              
+            }
+            set
+            {
+                cartProducts = value;
+            }
+        }
 
         public List<ProductModel> Products
         {
-            get
-            {
-                return CartProducts;
-            }
             set
             {
                 productsList = value;
@@ -76,25 +82,23 @@ namespace ProjectCsharp
             
         }
 
-        private void btn_Icon_Click(object sender, EventArgs e)
-        {
-            lsvShow.View = View.LargeIcon;
-        }
-
-        private void btn_Detail_Click(object sender, EventArgs e)
-        {
-            lsvShow.View = View.Details;
-        }
-
         private void btn_Add_Click(object sender, EventArgs e)
         {
-            if(SelectedItem != "")
+            if (SelectedItem != "")
             {
                 for (int i = 0; i < productsList.Count; i++)
                 {
                     if (SelectedItem.Equals(productsList.ElementAt(i).ProductName))
                     {
-                        CartProducts.Add(productsList.ElementAt(i));
+                        OrderDetailModel orderDetail = new OrderDetailModel
+                        {
+                            ProductName = productsList.ElementAt(i).ProductName,
+                            UnitPrice = productsList.ElementAt(i).UnitPrice,
+                            Specs = productsList.ElementAt(i).Specs,
+                        };
+                        cartProducts.Add(orderDetail);
+                        productsPresenter.setCartProduct();
+                        break;
                     }
                 }
             }

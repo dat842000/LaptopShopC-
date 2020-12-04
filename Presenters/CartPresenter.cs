@@ -14,6 +14,15 @@ namespace ProjectCsharp.Presenters
         }
         public void Display()
         {
+            View.CartProducts = Model.GetCartProduct();
+        }
+        public void setBuyProducts()
+        {
+            Model.setOrder(View.CartProducts);
+        }
+        public void setCartProduct()
+        {
+            Model.SetCartProducts(View.CartProducts);
         }
     }
 }

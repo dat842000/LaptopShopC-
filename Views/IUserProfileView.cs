@@ -12,6 +12,7 @@ namespace ProjectCsharp.Views
         string FullName { get; set; }
         string Email { get; set; }
         Boolean Gender { get; set; }
+        string Phone { get; set; }
         string Address { get; set; }
     }
 }

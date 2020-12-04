@@ -11,5 +11,10 @@ namespace ProjectCsharp.Models
         bool Login(string username, string password);
         UserProfileModel UserProfile();
         List<ProductModel> GetProducts();
+        void SetCartProducts(List<OrderDetailModel> cartProduct);
+        List<OrderDetailModel> GetCartProduct();
+        void setOrder(List<OrderDetailModel> buyProducts);
+        List<OrderDetailModel> getOrder();
+        List<OrderModel> getHistory();
     }
 }

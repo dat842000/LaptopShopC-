@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ProjectCsharp.Models.Models
 {
-    public class ProductModel
+    public class OrderDetailModel
     {
-        public int ProductID { get; set; }
         public string ProductName { get; set; }
         public float UnitPrice { get; set; }
+
         public int Specs { get; set; }
-        public int UnitInStock { get; set; }
-        public string ImgUrl { get; set; }
+        public DateTime OrderDate { get; set; }
+        public OrderModel Order { get; set; }
     }
 }

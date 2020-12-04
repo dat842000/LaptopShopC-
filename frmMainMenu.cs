@@ -118,9 +118,15 @@ namespace ProjectCsharp
             if (status == LoginStatus.LoggedIn)
             {
                 OpenChildForm(new frmUserProfile());
+                //btn_Cart.Enabled = true;
+                //btn_Order.Enabled = true;
+                //btn_History.Enabled = true;
             }
             else
             {
+                //btn_Cart.Enabled = false;
+                //btn_Order.Enabled = false;
+                //btn_History.Enabled = false;
                 OpenChildForm(new frmLogin(this));
             }
         }

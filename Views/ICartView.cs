@@ -9,6 +9,6 @@ namespace ProjectCsharp.Views
 {
     public interface ICartView :IView
     {
-        List<ProductModel> CartProducts { set; }
+        List<OrderDetailModel> CartProducts { get; set; }
     }
 }

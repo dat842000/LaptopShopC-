@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace ProjectCsharp.Views
 {
-    public interface IProductsView : IView
+    public interface IOrderView : IView
     {
-        List<OrderDetailModel> CartProducts { get; set; }
-        List<ProductModel> Products { set; }
+        List<OrderDetailModel> OrderProducts { set; }
     }
 }

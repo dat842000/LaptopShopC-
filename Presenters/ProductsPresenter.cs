@@ -12,9 +12,17 @@ namespace ProjectCsharp.Presenters
         public ProductsPresenter(IProductsView view) : base(view)
         {
         }
+        public void setCartProduct()
+        {
+            Model.SetCartProducts(View.CartProducts);
+        }
         public void Display()
         {
             View.Products = Model.GetProducts();
+        }
+        public void getCartProduct()
+        {
+            View.CartProducts = Model.GetCartProduct();
         }
     }
 }

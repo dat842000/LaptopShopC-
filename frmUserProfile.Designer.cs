@@ -32,13 +32,15 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txt_Address = new System.Windows.Forms.TextBox();
+            this.txt_Phone = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txt_FullName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.ck_Gender = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_Email = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txt_Address = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProfile)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,13 +86,13 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Email";
             // 
-            // txt_Address
+            // txt_Phone
             // 
-            this.txt_Address.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_Address.Location = new System.Drawing.Point(492, 229);
-            this.txt_Address.Name = "txt_Address";
-            this.txt_Address.Size = new System.Drawing.Size(120, 20);
-            this.txt_Address.TabIndex = 4;
+            this.txt_Phone.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txt_Phone.Location = new System.Drawing.Point(492, 229);
+            this.txt_Phone.Name = "txt_Phone";
+            this.txt_Phone.Size = new System.Drawing.Size(120, 20);
+            this.txt_Phone.TabIndex = 4;
             // 
             // label3
             // 
@@ -143,9 +145,9 @@
             this.label6.ForeColor = System.Drawing.Color.Gainsboro;
             this.label6.Location = new System.Drawing.Point(391, 228);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 18);
+            this.label6.Size = new System.Drawing.Size(51, 18);
             this.label6.TabIndex = 3;
-            this.label6.Text = "Address";
+            this.label6.Text = "Phone";
             // 
             // txt_Email
             // 
@@ -154,6 +156,26 @@
             this.txt_Email.Name = "txt_Email";
             this.txt_Email.Size = new System.Drawing.Size(120, 20);
             this.txt_Email.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label5.Location = new System.Drawing.Point(391, 265);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 18);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Address";
+            // 
+            // txt_Address
+            // 
+            this.txt_Address.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txt_Address.Location = new System.Drawing.Point(492, 266);
+            this.txt_Address.Name = "txt_Address";
+            this.txt_Address.Size = new System.Drawing.Size(120, 20);
+            this.txt_Address.TabIndex = 4;
             // 
             // frmUserProfile
             // 
@@ -166,6 +188,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txt_Email);
             this.Controls.Add(this.txt_Address);
+            this.Controls.Add(this.txt_Phone);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -186,12 +210,14 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txt_Address;
+        private System.Windows.Forms.TextBox txt_Phone;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt_FullName;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox ck_Gender;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt_Email;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txt_Address;
     }
 }

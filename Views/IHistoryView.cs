@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProjectCsharp.Views
 {
-    public interface IProductsView : IView
+    public interface IHistoryView : IView
     {
-        List<OrderDetailModel> CartProducts { get; set; }
-        List<ProductModel> Products { set; }
+
+        List<OrderModel> ListHistory { set; }
     }
 }
