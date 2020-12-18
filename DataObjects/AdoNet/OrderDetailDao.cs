@@ -11,16 +11,23 @@ namespace DataObjects.AdoNet
     public class OrderDetailDao : IOrderDetailDao
     {
         static Db db = new Db();
-
         public List<OrderDetail> GetOrderDetails(int OrderID)
         {
             string sql =
-            @"SELECT OrderID, O.ProductID, ProductName, O.UnitPrice
-                FROM [OrderDetail] O JOIN [Product] P ON O.ProductID = P.ProductID 
+            @"SELECT OrderID, O.ProductID, P.ProductName, O.UnitPrice, O.Specs, OrderStatus, O.Quantity, O.ImgUrl  
+                FROM [OrderDetail]  O JOIN Product P ON O.ProductId = P.ProductId
                WHERE OrderID = @OrderID";
 
             object[] parms = { "@OrderID", OrderID };
             return db.Read(sql, Make, parms).ToList();
+        }
+        public void InsertOrderDetail(OrderDetail orderDetail)
+        {
+            string sql =
+           @"INSERT INTO [OrderDetail] (OrderID, ProductID, UnitPrice, ImgUrl, Specs, Quantity, OrderStatus) 			
+              VALUES (@OrderID, @ProductID, @UnitPrice, @ImgUrl, @Specs, @Quantity, @OrderStatus)";
+
+            db.Insert(sql, Take(orderDetail));
         }
 
 
@@ -33,6 +40,9 @@ namespace DataObjects.AdoNet
               ProductID = reader["ProductID"].AsId(),
               ProductName = reader["ProductName"].AsString(),
               UnitPrice = reader["UnitPrice"].AsDouble(),
+              ImgUrl = reader["ImgUrl"].AsString(),
+              Specs = reader["Specs"].AsString(),
+              OrderStatus = reader["OrderStatus"].AsString(),
               Quantity = reader["Quantity"].AsInt()
           };
 
@@ -45,9 +55,11 @@ namespace DataObjects.AdoNet
             {
                 "@OrderID", orderDetail.OrderID,
                 "@ProductID", orderDetail.ProductID,
-                "@ProductName", orderDetail.ProductName,
                 "@UnitPrice", orderDetail.UnitPrice,
-                "@Quantity", orderDetail.Quantity
+                "@Quantity", orderDetail.Quantity,
+                "@ImgUrl",orderDetail.ImgUrl,
+                "@OrderStatus",orderDetail.OrderStatus,
+                "@Specs",orderDetail.Specs
             };
         }
     }

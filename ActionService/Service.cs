@@ -20,71 +20,47 @@ namespace ActionService
         static readonly IOrderDao orderDao = factory.OrderDao;
         static readonly IOrderDetailDao orderDetailDao = factory.OrderDetailDao;
 
-        public List<Brand> GetBrands()
+        //public List<Brand> GetBrands()
+        //{
+        //    return brandDao.GetBrands();
+        //}
+
+        public List<Product> GetProducts()
         {
-            return brandDao.GetBrands();
+            return productDao.GetProducts();
         }
 
-        public Brand GetBrandByProduct(int ProductID)
+        //public List<Product> GetProductsByBrand(int BrandID, string sortExpression)
+        //{
+        //    return productDao.GetProductsByBrand(BrandID, sortExpression);
+        //}
+
+        //public List<Product> SearchProducts(string productName, string sortExpression)
+        //{
+        //    return productDao.SearchProducts(productName, sortExpression);
+        //}
+
+        public Account GetAccount(string Username, string Password)
         {
-            return brandDao.GetBrandByProduct(ProductID);
+            var Account = accountDao.GetAccount(Username,Password);
+            return Account;
         }
 
-        public Product GetProduct(int ProductID)
-        {
-            var product = productDao.GetProduct(ProductID);
-            if (product.Brand == null)
-                product.Brand = brandDao.GetBrandByProduct(ProductID);
-
-            return product;
-        }
-
-        public List<Product> GetProductsByBrand(int BrandID, string sortExpression)
-        {
-            return productDao.GetProductsByBrand(BrandID, sortExpression);
-        }
-
-        public List<Product> SearchProducts(string productName, string sortExpression)
-        {
-            return productDao.SearchProducts(productName, sortExpression);
-        }
-
-        public List<Account> GetAccounts(string sortExpression)
-        {
-            var Accounts = accountDao.GetAccounts(sortExpression);
-            Accounts.RemoveAll(m => m.AccountID == 1);  // exclude admin (for demo purposes)
-            return Accounts;
-        }
-
-        public Account GetAccountByOrder(int OrderID)
-        {
-            return accountDao.GetAccountByOrder(OrderID);
-        }
-
-        public List<Account> GetAccountsWithOrderStatistics(string sortExpression)
-        {
-            return accountDao.GetAccountsWithOrderStatistics(sortExpression);
-        }
 
         public void InsertAccount(Account account)
         {
             accountDao.InsertAccount(account);
         }
-
-        public void UpdateAccount(Account account)
+        public Account CheckUserNameDuplicate(string Username)
         {
-            accountDao.UpdateAccount(account);
+            return accountDao.CheckUserNameDuplicate(Username);
         }
 
-        public void DeleteAccount(Account account)
-        {
-            accountDao.DeleteAccount(account);
-        }
+        //public void UpdateAccount(Account account)
+        //{
+        //    accountDao.UpdateAccount(account);
+        //}
 
-        public Order GetOrder(int OrderID)
-        {
-            return orderDao.GetOrder(OrderID);
-        }
 
         public List<Order> GetOrdersByAccount(int AccountID)
         {
@@ -96,6 +72,16 @@ namespace ActionService
             return orderDetailDao.GetOrderDetails(OrderID);
         }
 
+        public void InsertOrder(Order order)
+        {
+            orderDao.InsertOrder(order);
+        }
+
+        public void InsertOrderDetail(OrderDetail orderDetail)
+        {
+            orderDetailDao.InsertOrderDetail(orderDetail);
+        }
+
         //public bool Login(string email, string password)
         //{
         //    // websecurity does not accept null or empty
@@ -103,7 +89,7 @@ namespace ActionService
         //    if (string.IsNullOrEmpty(email)) return false;
         //    if (string.IsNullOrEmpty(password)) return false;
 
-        //    return WebSecurity.Login(email, password);
+        //return WebSecurity.Login(email, password);
         //}
 
         //public void Logout()

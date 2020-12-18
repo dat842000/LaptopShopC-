@@ -10,9 +10,11 @@ namespace BusinessObjects
     {
         public int ProductID { get; set; }
         public string ProductName { get; set; }
-        public double UnitPrice { get; set; }
-        public string Specs { get; set; }
-
+        public Double UnitPrice { get; set; }
+        public String Specs { get; set; }
+        public  Double RatingPoint { get; set; }
+        public int Quantity { get; set; }
+        public string ImgUrl { get; set; }
         public Brand Brand { get; set; }
     }
 }

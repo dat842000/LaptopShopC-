@@ -1,4 +1,6 @@
 ﻿using ActionService;
+using AutoMapper;
+using BusinessObjects;
 using ProjectCsharp.Models;
 using ProjectCsharp.Models.Models;
 using System;
@@ -19,101 +21,108 @@ namespace ProjectCsharp.Models
         static List<OrderDetailModel> listCartProducts;
 
         // danh sach san pham
-        static List<ProductModel> listProduct ;
+        static List<ProductModel> listProduct;
+        // thong tin nguoi dung
+        static UserProfileModel user = new UserProfileModel();
         static Model()
         {
+            listProduct = GetProductsData();
 
         }
+
+        // lay du lieu
         public bool Login(string username, string password)
         {
             bool Result = false;
-            if (username != null && password != null)
+            var Account = service.GetAccount(username, password);
+            if (Account != null)
             {
-                Result = (username == "admin" && password == "secret");
+                Result = true;
+                UserProfileModel info = new UserProfileModel
+                {
+                    AccountID = Account.AccountID,
+                    UserImg = Account.UserImg,
+                    FullName = Account.FullName,
+                    Email = Account.Email,
+                    Gender = Account.Gender,
+                    Phone = Account.Phone,
+                    Address = Account.Address,
+                    Role = Account.Role,
+                };
+                user = info;
+                GetOrderData();
             }
             return Result;
         }
-        public UserProfileModel UserProfile()
+        public static List<ProductModel> GetProductsData()
         {
-            UserProfileModel info = new UserProfileModel
+            listProduct = new List<ProductModel>();
+            var products = service.GetProducts();
+            foreach (var productBussinessObject in products)
             {
-                AccountID = 1,
-                UserImg = "DatNguyen.png",
-                FullName = "Nguyen Phuc Dat",
-                Email = "dnn8420@gmail.com",
-                Gender = true,
-                Phone = "0523093320",
-                Address = "TP.BienHoa T.DongNai",
-                Role = "Customer",
-            };
-            return info;
+                ProductModel p = new ProductModel
+                {
+                    ProductID = productBussinessObject.ProductID,
+                    ProductName = productBussinessObject.ProductName,
+                    UnitPrice = productBussinessObject.UnitPrice,
+                    Specs = productBussinessObject.Specs,
+                    UnitInStock = productBussinessObject.Quantity,
+                    ratingPoint = productBussinessObject.RatingPoint,
+                    ImgUrl = productBussinessObject.ImgUrl
+                };
+                listProduct.Add(p);
+            }
+            return listProduct;
+        }
+        public void GetOrderData()
+        {
+            listOrder = new List<OrderModel>();
+            var order = service.GetOrdersByAccount(user.AccountID);
+            foreach (var orderBussinessObject in order)
+            {
+                List<OrderDetailModel> orderDetailModels = new List<OrderDetailModel>();
+                var listOrderDetail = service.GetOrderDetails(orderBussinessObject.OrderID);
+                foreach (var ordDetail in listOrderDetail)
+                {
+                    OrderDetailModel orderDetail = new OrderDetailModel
+                    {
+                        ProductName = ordDetail.ProductName,
+                        UnitPrice = ordDetail.UnitPrice,
+                        ImgUrl = ordDetail.ImgUrl,
+                        OrderDate = orderBussinessObject.OrderDate,
+                        ShippedDate = orderBussinessObject.ShippedDate,
+                        OrderStatus = ordDetail.OrderStatus,
+                        Quantity = ordDetail.Quantity,
+                        Specs = ordDetail.Specs
+                    };
+                    orderDetailModels.Add(orderDetail);
+                }
+                OrderModel ord = new OrderModel
+                {
+                    OrderID = orderBussinessObject.OrderID,
+                    OrderDate = orderBussinessObject.OrderDate,
+                    ShippedDate = orderBussinessObject.ShippedDate,
+                    OrderStatus = orderBussinessObject.OrderStatus,
+                    Quantity = orderBussinessObject.Quantity,
+                    OrderDetails = orderDetailModels,
+                    User = user
+                };
+                listOrder.Add(ord);
+            }
+        }
+        public UserProfileModel GetUserProfile()
+        {
+            return user;
         }
         public List<ProductModel> GetProducts()
         {
-            listProduct = new List<ProductModel>();
-            ProductModel p1 = new ProductModel
-            {
-                ProductID = 1,
-                ProductName = "Acer Nitro 5",
-                UnitPrice = 599.00f,
-                Specs = 2018,
-                UnitInStock = 5,
-                ImgUrl = "Acer Nitro 5.png"
-
-            };
-            ProductModel p2 = new ProductModel
-            {
-                ProductID = 2,
-                ProductName = "Hp Zbook 150 G3",
-                UnitPrice = 1499.50f,
-                Specs = 2016,
-                UnitInStock = 5,
-                ImgUrl = "Hp Zbook 150 G3.png"
-            };
-            ProductModel p3 = new ProductModel
-            {
-                ProductID = 3,
-                ProductName = "Msi GL63",
-                UnitPrice = 999.99f,
-                Specs = 2018,
-                UnitInStock = 5,
-                ImgUrl = "Msi GL63.png"
-            };
-            ProductModel p4 = new ProductModel
-            {
-                ProductID = 4,
-                ProductName = "LenovoIdeaPad",
-                UnitPrice = 879.00f,
-                Specs = 2018,
-                UnitInStock = 5,
-                ImgUrl = "LenovoIdeaPad.png"
-            };
-            ProductModel p5 = new ProductModel
-            {
-                ProductID = 5,
-                ProductName = "Acer Swift 5",
-                UnitPrice = 1098.00f,
-                Specs = 2019,
-                UnitInStock = 5,
-                ImgUrl = "Acer Swift 5.png"
-            };
-            ProductModel p6 = new ProductModel
-            {
-                ProductID = 5,
-                ProductName = "Asus TUF FX505DT",
-                UnitPrice = 850.00f,
-                Specs = 2019,
-                //UnitInStock = 5,
-                ImgUrl = "Asus TUF FX505DT.png"
-            };
-            listProduct.Add(p1);
-            listProduct.Add(p2);
-            listProduct.Add(p3);
-            listProduct.Add(p4);
-            listProduct.Add(p5);
-            listProduct.Add(p6);
             return listProduct;
         }
+
+
+        // cap nhat du lieu 
+
+        // thong tin gio hang
         public void SetCartProducts(List<OrderDetailModel> cartProduct)
         {
             listCartProducts = cartProduct;
@@ -124,87 +133,104 @@ namespace ProjectCsharp.Models
             return listCartProducts;
         }
 
-        public void setOrder(List<OrderDetailModel> buyProducts)
+        // tao hoa don
+        public void setOrdering(List<OrderDetailModel> buyProducts)
         {
-            listOrder = getHistory();
-            var orderID =0;
-            if(listOrder == null)
+            // set Id order         
+            Order order = new Order
             {
-                listOrder = new List<OrderModel>();
-                orderID = 1;
-            }
-            else
-            {
-                orderID = listOrder.Count + 1;
-            }
-            OrderModel orderModel = new OrderModel
-            {
-                OrderID = orderID,
-                OrderDetails = buyProducts,
+                AccountID = user.AccountID,
                 OrderDate = DateTime.Now,
                 ShippedDate = null,
-                OrderStatus = "Pending",
-                User = UserProfile(),
+                OrderStatus = "Processing",
                 Quantity = buyProducts.Count,
             };
-            listOrder.Add(orderModel);
+            service.InsertOrder(order);
+            for (int i = 0; i < buyProducts.Count; i++)
+            {
+                OrderDetail detail = new OrderDetail
+                {
+                    OrderID = order.OrderID,
+                    ProductID = buyProducts.ElementAt(i).ProductID,
+                    UnitPrice = buyProducts.ElementAt(i).UnitPrice,
+                    Quantity = 1,
+                    ImgUrl = buyProducts.ElementAt(i).ImgUrl,
+                    OrderStatus = buyProducts.ElementAt(i).OrderStatus,
+                    Specs = buyProducts.ElementAt(i).Specs
+                };
+                service.InsertOrderDetail(detail);
+            }
+            GetOrderData();
         }
-        public List<OrderDetailModel> getOrder()
+        public List<OrderDetailModel> getOrdering()
         {
-            List<OrderDetailModel> orderList = new List<OrderDetailModel>();
+            List<OrderDetailModel> orderingList = new List<OrderDetailModel>();
             var listSize = 0;
-            listOrder = getHistory();
             if (listOrder != null)
             {
                 listSize = listOrder.Count;
             }
             for (int i = 0; i < listSize; i++)
             {
-                if (listOrder.ElementAt(i).OrderStatus.Equals("Pending"))
+                if (listOrder.ElementAt(i).OrderStatus.Equals("Processing"))
                 {
-                    for (int j = 0; j < listOrder.ElementAt(i).OrderDetails.Count; j++) {
-                        orderList.Add(listOrder.ElementAt(i).OrderDetails.ElementAt(j));
+                    for (int j = 0; j < listOrder.ElementAt(i).OrderDetails.Count; j++)
+                    {
+                        orderingList.Add(listOrder.ElementAt(i).OrderDetails.ElementAt(j));
                     }
                 }
             }
-            return orderList;
+            return orderingList;
         }
+
+        // hoa don da thanh toan
         public List<OrderModel> getHistory()
         {
-            // 
-            if (listOrder == null)
+            List<OrderModel> historyList = new List<OrderModel>();
+            var listSize = 0;
+
+            if (listOrder != null)
             {
-                GetProducts();
-                listOrder = new List<OrderModel>();
-                List<OrderDetailModel> listOrderDetails = new List<OrderDetailModel>();
-                OrderDetailModel orderDetail1 = new OrderDetailModel
-                {
-                    ProductName = listProduct.ElementAt(1).ProductName,
-                    Specs = listProduct.ElementAt(1).Specs,
-                    UnitPrice = listProduct.ElementAt(1).UnitPrice,
-                    OrderDate = DateTime.Now.AddDays(-2),
-                };
-                listOrderDetails.Add(orderDetail1);
-                OrderDetailModel orderDetail2 = new OrderDetailModel
-                {
-                    ProductName = listProduct.ElementAt(1).ProductName,
-                    Specs = listProduct.ElementAt(1).Specs,
-                    UnitPrice = listProduct.ElementAt(1).UnitPrice,
-                    OrderDate = DateTime.Now.AddDays(-2),
-                };
-                listOrderDetails.Add(orderDetail2);
-                OrderModel orderModel1 = new OrderModel
-                {
-                    OrderID = 1,
-                    OrderDetails = listOrderDetails,
-                    OrderDate = DateTime.Now.AddDays(-2),
-                    OrderStatus = "Pending",
-                    User = UserProfile(),
-                    Quantity = listOrderDetails.Count,
-                };
-                listOrder.Add(orderModel1);
+                listSize = listOrder.Count;
             }
-            return listOrder;
+            for (int i = 0; i < listSize; i++)
+            { 
+                historyList.Add(listOrder.ElementAt(i));
+
+            }
+
+            return historyList;
+        }
+
+        // dang ky tai khoan
+
+        public Boolean Register(string Username, string Password, string Fullname, string Phone, string Email, string Address, Boolean Gender, string urlImg)
+        {
+            Boolean result = false;
+            Account account = new Account
+            {
+                Username = Username,
+                Pass = Password,
+                FullName = Fullname,
+                Phone = Phone,
+                Email = Email,
+                Address = Address,
+                Gender = Gender,
+                UserImg = urlImg,
+            };
+            Account oldAccount = service.CheckUserNameDuplicate(Username);
+            if (oldAccount == null)
+            {
+                service.InsertAccount(account);
+                return true;
+            }
+            return result;
+        }
+        public void Logout()
+        {
+            user = new UserProfileModel();
+            listOrder = new List<OrderModel>();
+            listCartProducts = new List<OrderDetailModel>();
         }
     }
 }

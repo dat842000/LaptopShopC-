@@ -14,7 +14,7 @@ namespace ProjectCsharp.Presenters
         }
         public void Display()
         {
-            View.OrderProducts = Model.getOrder();
+            View.OrderProducts = Model.getOrdering();
         }
     }
 }

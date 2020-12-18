@@ -19,6 +19,7 @@ namespace DataObjects
 
         // gets a specific product
 
-        Product GetProduct(int productId);
+        List<Product> GetProducts();
+        Product GetProduct(int ProductID);
     }
 }

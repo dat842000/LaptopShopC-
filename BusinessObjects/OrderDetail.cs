@@ -13,8 +13,9 @@ namespace BusinessObjects
         public string ProductName { get; set; }
         public double UnitPrice { get; set; }
         public int Quantity { get; set; }
-
-
+        public string ImgUrl { get; set; }
+        public String Specs { get; set; }
+        public string OrderStatus { get; set; }
         public Order Order { get; set; }
     }
 }

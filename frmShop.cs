@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Guna.UI.WinForms;
 
 namespace ProjectCsharp
 {
@@ -19,15 +20,16 @@ namespace ProjectCsharp
         private List<ProductModel> productsList;
         private List<OrderDetailModel> cartProducts;
         private string SelectedItem="";
-        public frmShop()
+        private Boolean Login;
+        public frmShop(Boolean LoginStatus)
         {
             InitializeComponent();
             productsPresenter = new ProductsPresenter(this);
             productsPresenter.Display();
-            LoadListView();
             productsPresenter.getCartProduct();
+            TextChanged();
+            Login = LoginStatus;
         }
-        ImageList imgListLarge;
 
         public List<OrderDetailModel> CartProducts
         {
@@ -47,77 +49,122 @@ namespace ProjectCsharp
                 productsList = value;
             }
         }
-
-        private void LoadImageList()
+        private void loadPanel()
         {
-            imgListLarge = new ImageList() { ImageSize = new Size(68,68)};
-            for (int i = 0; i < productsList.Count; i++) {
-                imgListLarge.Images.Add(new Bitmap(Application.StartupPath + "\\Images\\" + productsList.ElementAt(i).ImgUrl));
-            }
-        }
-        private void LoadListView()
-        {
-            LoadImageList();
-            lsvShow.FullRowSelect = true;
-            lsvShow.LargeImageList = imgListLarge;
-
-            lsvShow.Columns.Add("Product Name");
-            lsvShow.Columns.Add("Price");
-            lsvShow.Columns.Add("Specs");
-
-            for(int i = 0; i < productsList.Count; i++)
+            for (int i = 0; i < productsList.Count; i++)
             {
-                ListViewItem Product = new ListViewItem();
-                Product.Text = productsList.ElementAt(i).ProductName;
-                Product.ImageIndex = i;
-                Product.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = productsList.ElementAt(i).UnitPrice.ToString() });
-                Product.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = productsList.ElementAt(i).Specs.ToString() });
-                lsvShow.Items.Add(Product);
+                var UsersGrid = new Laptop
+                {
+                    name = productsList.ElementAt(i).ProductName,
+                    urlImg = productsList.ElementAt(i).ImgUrl,
+                    unitprice = productsList.ElementAt(i).UnitPrice.ToString(),
+                    rating = productsList.ElementAt(i).ratingPoint,
+                };
+                UsersGrid.MyForm = this;
+                UsersGrid.UserControlButtonClicked += new
+                    EventHandler(MyUserControl_UserControlButtonClicked);
+                flowPanel.Controls.Add(UsersGrid);
             }
-
+            guna2PictureBox1.Image = new Bitmap(Application.StartupPath + "\\Images\\" + productsList.ElementAt(0).ImgUrl);
+            gunaPictureBox1.Image = new Bitmap(Application.StartupPath + "\\Images\\Acer Nitro 5\\Acer Nitro 5(1).png");
+            gunaPictureBox2.Image = new Bitmap(Application.StartupPath + "\\Images\\Acer Nitro 5\\Acer Nitro 5(2).png");
+            gunaPictureBox3.Image = new Bitmap(Application.StartupPath + "\\Images\\Acer Nitro 5\\Acer Nitro 5(3).jpg");
+            lbl_Laptopname.Text = productsList.ElementAt(0).ProductName;
+            Price.Text = productsList.ElementAt(0).UnitPrice.ToString() + " $";
+        }
+        private Laptop selectedUser;
+        private void MyUserControl_UserControlButtonClicked(object sender, EventArgs e)
+        {
+            selectedUser = (Laptop)sender;
+            gunaTransition1.HideSync(guna2PictureBox1);
+            guna2PictureBox1.Image = new Bitmap(Application.StartupPath +"\\Images\\"+ selectedUser.urlImg);
+            lbl_Laptopname.Text = selectedUser.name;
+            Price.Text = selectedUser.unitprice.ToString() + " $";
+            gunaTransition1.ShowSync(guna2PictureBox1);
+            SelectedItem = selectedUser.name;
+        }
+        private new void TextChanged()
+        {
+            if (cartProducts.Count > 0)
+            {
+                btn_AddToCart.Text = "Add To Cart (" + cartProducts.Count + ")";
+            }
+            else
+            {
+                btn_AddToCart.Text = "Add To Cart";
+            }
         }
 
         private void frmShop_Load(object sender, EventArgs e)
         {
-            
+            loadPanel();
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
-            if (SelectedItem != "")
+            if (Login)
             {
-                for (int i = 0; i < productsList.Count; i++)
+                if (SelectedItem != "")
                 {
-                    if (SelectedItem.Equals(productsList.ElementAt(i).ProductName))
+                    for (int i = 0; i < productsList.Count; i++)
                     {
-                        OrderDetailModel orderDetail = new OrderDetailModel
+                        if (SelectedItem.Equals(productsList.ElementAt(i).ProductName))
                         {
-                            ProductName = productsList.ElementAt(i).ProductName,
-                            UnitPrice = productsList.ElementAt(i).UnitPrice,
-                            Specs = productsList.ElementAt(i).Specs,
-                        };
-                        cartProducts.Add(orderDetail);
-                        productsPresenter.setCartProduct();
-                        break;
+                            OrderDetailModel orderDetail = new OrderDetailModel
+                            {
+                                ProductID = productsList.ElementAt(i).ProductID,
+                                ProductName = productsList.ElementAt(i).ProductName,
+                                ImgUrl = productsList.ElementAt(i).ImgUrl,
+                                UnitPrice = productsList.ElementAt(i).UnitPrice,
+                                Specs = productsList.ElementAt(i).Specs,
+                            };
+                            cartProducts.Add(orderDetail);
+                            productsPresenter.setCartProduct();
+                            break;
+                        }
                     }
                 }
+                else
+                {
+                    Nofitication nofitication = new Nofitication("Select an item");
+                    nofitication.ShowDialog();
+                }
+                TextChanged();
             }
             else
             {
-                MessageBox.Show("You have to selected an item");
+                Nofitication nofitication = new Nofitication("Login required");
+                nofitication.ShowDialog();
+            }
+        }
+        private GunaPictureBox selectedImg;
+        private void frmShop_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+            if (selectedImg != null)
+            {
+                selectedImg.BorderStyle = BorderStyle.None;
+                selectedImg = (GunaPictureBox)sender;
+                selectedImg.BorderStyle = BorderStyle.FixedSingle;
+                guna2PictureBox1.Image = selectedImg.Image;
+            }
+            else
+            {
+                selectedImg = (GunaPictureBox)sender;
+                selectedImg.BorderStyle = BorderStyle.FixedSingle;
+                guna2PictureBox1.Image = selectedImg.Image;
             }
         }
 
-        private void lsvShow_SelectedIndexChanged(object sender, EventArgs e)
+        private void guna2CircleButton6_Click(object sender, EventArgs e)
         {
-            ListView lsv = sender as ListView;
-            SelectedItem = "";
-            if (lsv.SelectedItems.Count > 0)
-            {
-                ListViewItem item = lsv.SelectedItems[0];
-                SelectedItem = item.Text;
-            }
+            if (!guna2ShadowPanel11.Visible) guna2Transition1.ShowSync(guna2ShadowPanel11);
+            else guna2Transition1.HideSync(guna2ShadowPanel11);
+        }
 
+        private void guna2CircleButton12_Click(object sender, EventArgs e)
+        {
+            guna2Transition2.HideSync(guna2ShadowPanel11);
         }
     }
 }

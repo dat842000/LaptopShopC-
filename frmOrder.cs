@@ -22,27 +22,53 @@ namespace ProjectCsharp
             InitializeComponent();
             orderPresenter = new OrderPresenter(this);
             orderPresenter.Display();
-            LoadListView();
+            LoadOrder();
+            TextChange();
         }
 
-        public List<OrderDetailModel> OrderProducts 
+        public List<OrderDetailModel> OrderProducts
         {
-            set 
+            set
             {
                 orderProducts = value;
             }
         }
-        private void LoadListView()
+        private void LoadOrder()
         {
+            
             for (int i = 0; i < orderProducts.Count; i++)
             {
-                ListViewItem Product = new ListViewItem();
-                Product.Text = orderProducts.ElementAt(i).ProductName;
-                Product.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = orderProducts.ElementAt(i).UnitPrice.ToString() + " $" });
-                Product.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = orderProducts.ElementAt(i).Specs.ToString() });
-                Product.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = orderProducts.ElementAt(i).OrderDate.ToShortDateString() });
-                
-                lsvShow.Items.Add(Product);
+                guna2DataGridView2.Rows.Add(1);
+                guna2DataGridView2.Rows[i].Cells[1].Value = Image.FromFile(@"Images\" + orderProducts.ElementAt(i).ImgUrl);
+                guna2DataGridView2.Rows[i].Cells[2].Value = orderProducts.ElementAt(i).ProductName;
+                if (orderProducts.ElementAt(i).OrderStatus.Equals("Pending"))
+                {
+                    guna2DataGridView2.Rows[i].Cells[3].Value = Image.FromFile(@"Images\btnImg\check.png");
+                    guna2DataGridView2.Rows[i].Cells[4].Value = Image.FromFile(@"Images\btnImg\processing.png");
+                }
+                else
+                {
+                    guna2DataGridView2.Rows[i].Cells[4].Value = Image.FromFile(@"Images\btnImg\check.png");
+                    guna2DataGridView2.Rows[i].Cells[3].Value = Image.FromFile(@"Images\btnImg\check.png");
+                }
+                guna2DataGridView2.Rows[i].Cells[5].Value = orderProducts.ElementAt(i).Specs.ToString();
+                guna2DataGridView2.Rows[i].Cells[6].Value = orderProducts.ElementAt(i).UnitPrice.ToString() + " $";
+            }
+        }
+
+        private void guna2DataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            TextChange();
+        }
+        public void TextChange()
+        {
+            int selectedRowIndex=0;
+            if (orderProducts.Count > 0)
+            {
+                selectedRowIndex = guna2DataGridView2.CurrentCell.RowIndex;
+                DateTime orderDate = orderProducts.ElementAt(selectedRowIndex).OrderDate;
+                lb_orderDate.Text = orderDate.ToShortDateString();
+                lb_ExpectedDate.Text = orderDate.AddDays(+3).ToShortDateString();
             }
         }
     }

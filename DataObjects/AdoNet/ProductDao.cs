@@ -35,18 +35,24 @@ namespace DataObjects.AdoNet
 
             sql += where.ToString().OrderBy(sortExpression);
 
-            object[] parms = { "@ProductName", "%" + ProductName + "%"};
+            object[] parms = { "@ProductName", "%" + ProductName + "%" };
             return db.Read(sql, Make, parms).ToList();
         }
 
+        public List<Product> GetProducts()
+        {
+            string sql =
+             @"SELECT ProductID, ProductName, UnitPrice, Specs, RatingPoint, ImgUrl, Quantity,
+                      BrandID
+                 FROM [Product]";
+            return db.Read(sql, Make).ToList();
+        }
         public Product GetProduct(int ProductID)
         {
             string sql =
-             @"SELECT ProductID, ProductName, UnitPrice, Specs, 
-                      B.BrandID, BrandName 
-                 FROM [Product] P JOIN [Brand] C ON P.BrandID = B.BrandID
-                WHERE P.ProductID = @ProductID";
-
+             @"SELECT ProductID, ProductName, UnitPrice, Specs, RatingPoint, ImgUrl, Quantity,
+                      BrandID
+                 FROM [Product] WHERE @ProductID = ProductID";
             object[] parms = { "@ProductID", ProductID };
             return db.Read(sql, Make, parms).FirstOrDefault();
         }
@@ -60,7 +66,10 @@ namespace DataObjects.AdoNet
               ProductID = reader["ProductId"].AsId(),
               ProductName = reader["ProductName"].AsString(),
               UnitPrice = reader["UnitPrice"].AsDouble(),
-              Specs = reader["Specs"].AsString()
+              Specs = reader["Specs"].AsString(),
+              RatingPoint = reader["RatingPoint"].AsDouble(),
+              ImgUrl = reader["ImgUrl"].AsString(),
+              Quantity = reader["Quantity"].AsInt()
           };
 
         // creates query parameter list from Product object
@@ -72,8 +81,13 @@ namespace DataObjects.AdoNet
                 "@ProductID", product.ProductID,
                 "@ProductName", product.ProductName,
                 "@UnitPrice", product.UnitPrice,
-                "@Specs", product.Specs
+                "@Specs", product.Specs,
+                "@RatingPoint", product.RatingPoint,
+                "@ImgUrl", product.ImgUrl,
+                "@Quantity", product.Quantity
             };
         }
+
+
     }
 }

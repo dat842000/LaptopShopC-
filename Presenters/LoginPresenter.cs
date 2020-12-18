@@ -16,14 +16,14 @@ namespace ProjectCsharp.Presenters
         }
         public void Login()
         {
-            string username = View.Username;
-            string password = View.Password;
+            string username = View.UsernameLogin;
+            string password = View.PasswordLogin;
 
             if(Model.Login(username, password))
             {
                 this.view.OnLoginSuccess();
             } else {
-                this.view.OnLoginFailure("Username and password do not match. Please try again");
+                this.view.OnLoginFailure("Login failed");
             } 
 
         }

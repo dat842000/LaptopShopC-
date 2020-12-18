@@ -9,24 +9,22 @@ namespace ActionService
 {
     public interface IService
     {
-        List<Brand> GetBrands();
-        Brand GetBrandByProduct(int ProductID);
+        //List<Brand> GetBrands();
 
-        Product GetProduct(int ProductID);
-        List<Product> GetProductsByBrand(int BrandID, string sortExpression);
-        List<Product> SearchProducts(string productName, string sortExpression);
+        List<Product> GetProducts();
+        //List<Product> GetProductsByBrand(int BrandID, string sortExpression);
+        //List<Product> SearchProducts(string productName, string sortExpression);
 
-        List<Account> GetAccounts(string sortExpression);
-        Account GetAccountByOrder(int OrderID);
-        List<Account> GetAccountsWithOrderStatistics(string sortExpression);
+        Account GetAccount(string Username, string Password);
+
+        //void UpdateAccount(Account account);
         void InsertAccount(Account account);
-        void UpdateAccount(Account account);
-        void DeleteAccount(Account account);
+        Account CheckUserNameDuplicate(string Username);
 
-
-        Order GetOrder(int OrderID);
         List<Order> GetOrdersByAccount(int AccountID);
+        void InsertOrder(Order order);
         List<OrderDetail> GetOrderDetails(int OrderID);
+        void InsertOrderDetail(OrderDetail orderDetail);
 
     }
 }

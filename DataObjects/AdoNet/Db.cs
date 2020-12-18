@@ -61,7 +61,7 @@ namespace DataObjects.AdoNet
 
         // insert a new record
 
-        public int Insert(string sql, params object[] parms)
+        public int InsertIdentity(string sql, params object[] parms)
         {
 
             using (var connection = CreateConnection())
@@ -69,6 +69,26 @@ namespace DataObjects.AdoNet
                 using (var command = CreateCommand(sql + ";SELECT SCOPE_IDENTITY();", connection, parms))
                 {
                     return int.Parse(command.ExecuteScalar().ToString());
+                }
+            }
+
+        }
+        public int Insert(string sql, params object[] parms)
+        {
+
+            using (var connection = CreateConnection())
+            {
+                using (var command = CreateCommand(sql, connection, parms))
+                {
+                    var cmd = command.ExecuteScalar();
+                    if (cmd == null)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return int.Parse(cmd.ToString());
+                    }
                 }
             }
 

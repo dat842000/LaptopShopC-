@@ -15,13 +15,18 @@ namespace ProjectCsharp.Presenters
         }
         public void DisplayInfo()
         {
-            UserProfileModel info = Model.UserProfile();
+            UserProfileModel info = Model.GetUserProfile();
             View.UserImg = info.UserImg;
             View.FullName = info.FullName;
             View.Email = info.Email;
             View.Gender = info.Gender;
             View.Phone = info.Phone;
             View.Address = info.Address;
+        }
+        public void Logout()
+        {
+            Model.Logout();
+            View.Logout();
         }
     }
 }

@@ -14,5 +14,6 @@ namespace ProjectCsharp.Views
         Boolean Gender { get; set; }
         string Phone { get; set; }
         string Address { get; set; }
+        void Logout();
     }
 }

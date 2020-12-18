@@ -10,8 +10,9 @@ namespace ProjectCsharp.Models.Models
     {
         public int ProductID { get; set; }
         public string ProductName { get; set; }
-        public float UnitPrice { get; set; }
-        public int Specs { get; set; }
+        public Double UnitPrice { get; set; }
+        public string Specs { get; set; }
+        public Double ratingPoint { get; set; }
         public int UnitInStock { get; set; }
         public string ImgUrl { get; set; }
     }

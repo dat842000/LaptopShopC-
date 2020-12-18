@@ -11,35 +11,18 @@ namespace DataObjects
     {
         // gets a specific Member
 
-        Account GetAccount(int AccountID);
-
-        // gets a specific Member by email
-
-        Account GetAccountByEmail(string email);
-
-        // gets a sorted list of all Members
-
-        List<Account> GetAccounts(string sortExpression = "AccountID ASC");
-
-        // gets Member given an order
-
-        Account GetAccountByOrder(int OrderID);
-
-        // gets Members with order statistics in given sort order.
-
-        List<Account> GetAccountsWithOrderStatistics(string sortExpression);
+        Account GetAccount(string Username, string Password);
+        Account GetAccountByID(int AccountID);
 
         // inserts a new Member
         // following insert, Member object will contain the new identifier
 
         void InsertAccount(Account account);
+        Account CheckUserNameDuplicate(string Username);
 
-        // updates a Member
+        //// updates a Member
 
-        void UpdateAccount(Account account);
+        //void UpdateAccount(Account account);
 
-        // deletes a Member
-
-        void DeleteAccount(Account account);
     }
 }

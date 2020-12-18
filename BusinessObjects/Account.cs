@@ -24,7 +24,9 @@ namespace BusinessObjects
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public int NumOrders { get; set; }
-        public DateTime LastOrderDate { get; set; }
+        public string UserImg { get; set; }
+        public Boolean Gender { get; set; }
+        public string Phone { get; set; }
+        public string Role { get; set; }
     }
 }

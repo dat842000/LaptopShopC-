@@ -15,6 +15,7 @@ namespace ProjectCsharp
     public partial class frmMainMenu : Form
     {
         private IconButton currentBtn;
+        private Color lastColorBtn;
         private Panel leftBorderBtn;
         private Form currentChildForm;
         public frmMainMenu()
@@ -23,6 +24,8 @@ namespace ProjectCsharp
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
             panelMenu.Controls.Add(leftBorderBtn);
+           OpenChildForm(new frmShop(false));
+
 
             this.Text = string.Empty;
             this.ControlBox = false;
@@ -34,8 +37,8 @@ namespace ProjectCsharp
             public static Color color1 = Color.FromArgb(172, 126, 241);
             public static Color color2 = Color.FromArgb(249, 118, 176);
             public static Color color3 = Color.FromArgb(253, 138, 114);
-            public static Color color4 = Color.FromArgb(95, 77, 221);
-            public static Color color5 = Color.FromArgb(249, 88, 155);
+            public static Color color4 = Color.FromArgb(24, 161, 251);
+            public static Color color5 = Color.MediumSeaGreen;
             public static Color color6 = Color.FromArgb(24, 161, 251);
         }
         private void ActivateButton(object senderBtn, Color color)
@@ -44,7 +47,7 @@ namespace ProjectCsharp
             {
                 DisableButton();
                 currentBtn = (IconButton)senderBtn;
-                currentBtn.BackColor = Color.FromArgb(37, 36, 81);
+                currentBtn.BackColor = Color.GhostWhite;
                 currentBtn.ForeColor = color;
                 currentBtn.TextAlign = ContentAlignment.MiddleCenter;
                 currentBtn.IconColor = color;
@@ -64,10 +67,10 @@ namespace ProjectCsharp
         {
             if (currentBtn != null)
             {
-                currentBtn.BackColor = Color.FromArgb(31, 30, 68);
-                currentBtn.ForeColor = Color.Gainsboro;
+                currentBtn.BackColor = Color.White;
+                currentBtn.ForeColor = lastColorBtn;
                 currentBtn.TextAlign = ContentAlignment.MiddleLeft;
-                currentBtn.IconColor = Color.Gainsboro;
+                currentBtn.IconColor = lastColorBtn;
                 currentBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
                 currentBtn.ImageAlign = ContentAlignment.MiddleLeft;
             }
@@ -89,69 +92,103 @@ namespace ProjectCsharp
             childForm.BringToFront();
             childForm.Show();
             lblTitleChildForm.Text = childForm.Text;
+            lblTitleChildForm.ForeColor = lastColorBtn;
         }
 
         private void btn_Shop_Click(object sender, EventArgs e)
         {
+            Boolean Status = false;
+            if(status == LoginStatus.LoggedIn)
+            {
+                Status = true;
+            }
+            else
+            {
+                Status = false;
+            }
             ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new frmShop());
+            lastColorBtn = RGBColors.color1;
+            OpenChildForm(new frmShop(Status));
         }
 
         private void btn_Cart_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color2);
-            OpenChildForm(new frmCart());
+            if (status == LoginStatus.LoggedIn) {
+                ActivateButton(sender, RGBColors.color2);
+                lastColorBtn = RGBColors.color2;
+                OpenChildForm(new frmCart());
+            }
+            else
+            {
+                Nofitication nofitication = new Nofitication("Login required");
+                nofitication.ShowDialog();
+            }
         }
 
         private void btn_Order_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color3);
-            OpenChildForm(new frmOrder());
+            if (status == LoginStatus.LoggedIn) {
+                ActivateButton(sender, RGBColors.color3);
+                lastColorBtn = RGBColors.color3;
+                OpenChildForm(new frmOrder());
+            }
+            else
+            {
+                Nofitication nofitication = new Nofitication("Login required");
+                nofitication.ShowDialog();
+            }
         }
         private void btn_History_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color4);
-            OpenChildForm(new frmHistory());
+            if (status == LoginStatus.LoggedIn)
+            {
+                ActivateButton(sender, RGBColors.color4);
+                lastColorBtn = RGBColors.color4;
+                OpenChildForm(new frmHistory());
+            }
+            else
+            {
+                Nofitication nofitication = new Nofitication("Login required");
+                nofitication.ShowDialog();
+            }
+        }
+        
+        private void btn_Profile_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color5);
+            lastColorBtn = RGBColors.color5;
+            CheckLogin();
         }
         private void CheckLogin()
         {
             if (status == LoginStatus.LoggedIn)
             {
-                OpenChildForm(new frmUserProfile());
-                //btn_Cart.Enabled = true;
-                //btn_Order.Enabled = true;
-                //btn_History.Enabled = true;
+                OpenChildForm(new frmUserProfile(this));
             }
             else
             {
-                //btn_Cart.Enabled = false;
-                //btn_Order.Enabled = false;
-                //btn_History.Enabled = false;
                 OpenChildForm(new frmLogin(this));
             }
         }
-
-        private void btn_Profile_Click(object sender, EventArgs e)
-        {
-            ActivateButton(sender, RGBColors.color5);
-            CheckLogin();
-        }
         public void OnLoginFailure(string errorMessage)
         {
-            MessageBox.Show(errorMessage);
+            Nofitication nofitication = new Nofitication(errorMessage);
+            nofitication.ShowDialog();
             status = LoginStatus.LoggedOut;
         }
         public void OnLoginSuccess()
         {
+            Nofitication nofitication = new Nofitication("Login Success");
+            nofitication.ShowDialog();
             status = LoginStatus.LoggedIn;
             CheckLogin();
         }
-        
-        private void btn_Home_Click(object sender, EventArgs e)
+        public void Logout()
         {
-
-            Reset();
+            status = LoginStatus.LoggedOut;
+            CheckLogin();
         }
+        
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -168,14 +205,6 @@ namespace ProjectCsharp
             WindowState = FormWindowState.Minimized;
         }
 
-        private void Reset()
-        {
-            DisableButton();
-            leftBorderBtn.Visible = false;
-            iconCurrentChildForm.IconChar = IconChar.Home;
-            iconCurrentChildForm.IconColor = Color.MediumSeaGreen;
-            lblTitleChildForm.Text = "Home";
-        }
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]

@@ -11,23 +11,29 @@ namespace DataObjects.AdoNet
     public class OrderDao : IOrderDao
     {
         static Db db = new Db();
-
-        public Order GetOrder(int OrderID)
+        public Order GetOrder(int orderId)
         {
 
             string sql =
-            @"SELECT OrderID, OrderDate, OrderStatus
+            @"SELECT OrderID, AccountID, OrderDate, ShippedDate, OrderStatus, Quantity
               FROM [Order] 
-             WHERE OrderID = @OrderID";
+             WHERE OrderId = @OrderId";
 
-            object[] parms = { "@OrderID", OrderID };
+            object[] parms = { "@OrderId", orderId };
             return db.Read(sql, Make, parms).FirstOrDefault();
         }
+        public void InsertOrder(Order order)
+        {
+            string sql =
+            @"INSERT INTO [Order] (AccountID, OrderDate, ShippedDate, OrderStatus, Quantity) 			
+              VALUES (@AccountID, @OrderDate, @ShippedDate, @OrderStatus, @Quantity)";
 
+                order.OrderID = db.InsertIdentity(sql, Take(order));
+        }
         public List<Order> GetOrdersByAccount(int AccountID)
         {
             string sql =
-              @" SELECT OrderID, OrderDate, OrderStatus
+              @" SELECT OrderID, AccountID, OrderDate, ShippedDate, OrderStatus, Quantity
                    FROM [Order]
                   WHERE AccountID = @AccountID
                ORDER BY OrderDate ASC";
@@ -41,7 +47,9 @@ namespace DataObjects.AdoNet
            {
                OrderID = reader["OrderId"].AsId(),
                OrderDate = reader["OrderDate"].AsDateTime(),
-               OrderStatus = reader["OrderStatus"].AsInt()
+               ShippedDate = reader["ShippedDate"].AsDateTime(),
+               OrderStatus = reader["OrderStatus"].AsString(),
+               Quantity = reader["Quantity"].AsInt(),
            };
 
 
@@ -52,8 +60,11 @@ namespace DataObjects.AdoNet
             return new object[]
             {
                 "@OrderID", order.OrderID,
+                "@AccountID", order.AccountID,
                 "@OrderDate", order.OrderDate,
-                "@OrderStatus", order.OrderStatus
+                "@ShippedDate",order.ShippedDate,
+                "@OrderStatus", order.OrderStatus,
+                "@Quantity",order.Quantity
             };
         }
     }

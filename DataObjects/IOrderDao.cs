@@ -10,6 +10,7 @@ namespace DataObjects
     public interface IOrderDao
     {
         Order GetOrder(int OrderID);
+        void InsertOrder(Order order);
 
         List<Order> GetOrdersByAccount(int AccountID);
     }

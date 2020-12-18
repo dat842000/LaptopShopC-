@@ -10,5 +10,6 @@ namespace DataObjects
     public interface IOrderDetailDao
     {
         List<OrderDetail> GetOrderDetails(int orderId);
+        void InsertOrderDetail(OrderDetail orderDetail);
     }
 }
