@@ -50,6 +50,7 @@
     <Compile Include="AdoNet\OrderDao.cs" />
     <Compile Include="AdoNet\OrderDetailDao.cs" />
     <Compile Include="AdoNet\ProductDao.cs" />
+    <Compile Include="AdoNet\SubImgDao.cs" />
     <Compile Include="DaoFactories.cs" />
     <Compile Include="IAccountDao.cs" />
     <Compile Include="IBrandDao.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="IOrderDao.cs" />
     <Compile Include="IOrderDetailDao.cs" />
     <Compile Include="IProductDao.cs" />
+    <Compile Include="ISubImgDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

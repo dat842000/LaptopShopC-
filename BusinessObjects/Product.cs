@@ -15,6 +15,7 @@ namespace BusinessObjects
         public  Double RatingPoint { get; set; }
         public int Quantity { get; set; }
         public string ImgUrl { get; set; }
+        public List<SubImg> SubImgs { get; set; }
         public Brand Brand { get; set; }
     }
 }

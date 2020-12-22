@@ -15,7 +15,7 @@ namespace DataObjects.AdoNet
         public List<Product> GetProductsByBrand(int BrandID, string sortExpression)
         {
             string sql =
-            @"SELECT ProductID, ProductName, UnitPrice, Specs
+            @"SELECT ProductID, ProductName, UnitPrice, Specs, RatingPoint, ImgUrl, Quantity
                 FROM [Product] P JOIN [Brand] B ON P.BrandID = B.BrandID
                WHERE B.BrandID = @BrandID".OrderBy(sortExpression);
 
@@ -26,7 +26,7 @@ namespace DataObjects.AdoNet
         public List<Product> SearchProducts(string ProductName, string sortExpression)
         {
             string sql =
-                @"SELECT ProductID, ProductName, UnitPrice, Specs
+                @"SELECT ProductID, ProductName, UnitPrice, Specs, RatingPoint, ImgUrl, Quantity
                     FROM [Product] ";
 
             var where = new StringBuilder();

@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.AnimatorNS.Animation animation5 = new Guna.UI2.AnimatorNS.Animation();
+            Guna.UI2.AnimatorNS.Animation animation1 = new Guna.UI2.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             this.pn_regis = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.genderRegis = new Guna.UI.WinForms.GunaCheckBox();
-            this.btn_Submit = new Guna.UI.WinForms.GunaAdvenceButton();
             this.picRegis = new System.Windows.Forms.PictureBox();
             this.nameRegis = new Guna.UI2.WinForms.Guna2TextBox();
             this.addressRegis = new Guna.UI2.WinForms.Guna2TextBox();
@@ -41,6 +40,7 @@
             this.Label4 = new System.Windows.Forms.Label();
             this.userRisgis = new Guna.UI2.WinForms.Guna2TextBox();
             this.passRegis = new Guna.UI2.WinForms.Guna2TextBox();
+            this.btnSubmit = new System.Windows.Forms.Label();
             this.Clear = new System.Windows.Forms.Label();
             this.Login = new System.Windows.Forms.Label();
             this.btn_Register = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -59,9 +59,7 @@
             // pn_regis
             // 
             this.pn_regis.BackColor = System.Drawing.Color.Transparent;
-            this.pn_regis.Controls.Add(this.pn_login);
             this.pn_regis.Controls.Add(this.genderRegis);
-            this.pn_regis.Controls.Add(this.btn_Submit);
             this.pn_regis.Controls.Add(this.picRegis);
             this.pn_regis.Controls.Add(this.nameRegis);
             this.pn_regis.Controls.Add(this.addressRegis);
@@ -70,6 +68,7 @@
             this.pn_regis.Controls.Add(this.Label4);
             this.pn_regis.Controls.Add(this.userRisgis);
             this.pn_regis.Controls.Add(this.passRegis);
+            this.pn_regis.Controls.Add(this.btnSubmit);
             this.pn_regis.Controls.Add(this.Clear);
             this.pn_regis.Controls.Add(this.Login);
             this.pn_regis.Controls.Add(this.btn_Register);
@@ -96,45 +95,6 @@
             this.genderRegis.Size = new System.Drawing.Size(20, 20);
             this.genderRegis.TabIndex = 13;
             this.genderRegis.CheckedChanged += new System.EventHandler(this.genderRegis_CheckedChanged);
-            // 
-            // btn_Submit
-            // 
-            this.btn_Submit.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btn_Submit.AnimationHoverSpeed = 0.07F;
-            this.btn_Submit.AnimationSpeed = 0.03F;
-            this.btn_Submit.BackColor = System.Drawing.Color.Transparent;
-            this.btn_Submit.BaseColor = System.Drawing.Color.Transparent;
-            this.btn_Submit.BorderColor = System.Drawing.Color.Black;
-            this.btn_Submit.CheckedBaseColor = System.Drawing.Color.Gray;
-            this.btn_Submit.CheckedBorderColor = System.Drawing.Color.Black;
-            this.btn_Submit.CheckedForeColor = System.Drawing.Color.White;
-            this.btn_Submit.CheckedImage = global::ProjectCsharp.Properties.Resources.icons8_buy_901;
-            this.btn_Submit.CheckedLineColor = System.Drawing.Color.DimGray;
-            this.guna2Transition1.SetDecoration(this.btn_Submit, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.btn_Submit.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.btn_Submit.FocusedColor = System.Drawing.Color.Empty;
-            this.btn_Submit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Submit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(126)))), ((int)(((byte)(241)))));
-            this.btn_Submit.Image = null;
-            this.btn_Submit.ImageSize = new System.Drawing.Size(20, 20);
-            this.btn_Submit.LineBottom = 3;
-            this.btn_Submit.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(126)))), ((int)(((byte)(241)))));
-            this.btn_Submit.LineLeft = 3;
-            this.btn_Submit.LineRight = 3;
-            this.btn_Submit.LineTop = 3;
-            this.btn_Submit.Location = new System.Drawing.Point(92, 211);
-            this.btn_Submit.Name = "btn_Submit";
-            this.btn_Submit.OnHoverBaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(143)))), ((int)(((byte)(255)))));
-            this.btn_Submit.OnHoverBorderColor = System.Drawing.Color.Black;
-            this.btn_Submit.OnHoverForeColor = System.Drawing.Color.White;
-            this.btn_Submit.OnHoverImage = null;
-            this.btn_Submit.OnHoverLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(58)))), ((int)(((byte)(170)))));
-            this.btn_Submit.OnPressedColor = System.Drawing.Color.Black;
-            this.btn_Submit.Size = new System.Drawing.Size(83, 22);
-            this.btn_Submit.TabIndex = 12;
-            this.btn_Submit.Text = "Submit";
-            this.btn_Submit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.btn_Submit.Click += new System.EventHandler(this.btn_Submit_Click);
             // 
             // picRegis
             // 
@@ -328,6 +288,20 @@
             this.passRegis.TabIndex = 2;
             this.passRegis.UseSystemPasswordChar = true;
             // 
+            // btnSubmit
+            // 
+            this.btnSubmit.AutoSize = true;
+            this.btnSubmit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.guna2Transition1.SetDecoration(this.btnSubmit, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.btnSubmit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSubmit.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnSubmit.Location = new System.Drawing.Point(106, 212);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(59, 20);
+            this.btnSubmit.TabIndex = 6;
+            this.btnSubmit.Text = "Submit";
+            this.btnSubmit.Click += new System.EventHandler(this.btn_Submit_Click);
+            // 
             // Clear
             // 
             this.Clear.AutoSize = true;
@@ -386,7 +360,7 @@
             this.pn_login.Controls.Add(this.lb_UsernameLogin);
             this.guna2Transition1.SetDecoration(this.pn_login, Guna.UI2.AnimatorNS.DecorationType.None);
             this.pn_login.FillColor = System.Drawing.Color.White;
-            this.pn_login.Location = new System.Drawing.Point(-1, 0);
+            this.pn_login.Location = new System.Drawing.Point(281, 1);
             this.pn_login.Name = "pn_login";
             this.pn_login.ShadowColor = System.Drawing.Color.White;
             this.pn_login.ShadowDepth = 80;
@@ -513,22 +487,22 @@
             // 
             this.guna2Transition1.AnimationType = Guna.UI2.AnimatorNS.AnimationType.HorizSlide;
             this.guna2Transition1.Cursor = null;
-            animation5.AnimateOnlyDifferences = true;
-            animation5.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation5.BlindCoeff")));
-            animation5.LeafCoeff = 0F;
-            animation5.MaxTime = 1F;
-            animation5.MinTime = 0F;
-            animation5.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation5.MosaicCoeff")));
-            animation5.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation5.MosaicShift")));
-            animation5.MosaicSize = 0;
-            animation5.Padding = new System.Windows.Forms.Padding(0);
-            animation5.RotateCoeff = 0F;
-            animation5.RotateLimit = 0F;
-            animation5.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation5.ScaleCoeff")));
-            animation5.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation5.SlideCoeff")));
-            animation5.TimeCoeff = 0F;
-            animation5.TransparencyCoeff = 0F;
-            this.guna2Transition1.DefaultAnimation = animation5;
+            animation1.AnimateOnlyDifferences = true;
+            animation1.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.BlindCoeff")));
+            animation1.LeafCoeff = 0F;
+            animation1.MaxTime = 1F;
+            animation1.MinTime = 0F;
+            animation1.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicCoeff")));
+            animation1.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicShift")));
+            animation1.MosaicSize = 0;
+            animation1.Padding = new System.Windows.Forms.Padding(0);
+            animation1.RotateCoeff = 0F;
+            animation1.RotateLimit = 0F;
+            animation1.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.ScaleCoeff")));
+            animation1.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.SlideCoeff")));
+            animation1.TimeCoeff = 0F;
+            animation1.TransparencyCoeff = 0F;
+            this.guna2Transition1.DefaultAnimation = animation1;
             // 
             // frmLogin
             // 
@@ -537,6 +511,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1142, 487);
             this.ControlBox = false;
+            this.Controls.Add(this.pn_login);
             this.Controls.Add(this.pn_regis);
             this.guna2Transition1.SetDecoration(this, Guna.UI2.AnimatorNS.DecorationType.None);
             this.Name = "frmLogin";
@@ -569,8 +544,8 @@
         internal Guna.UI2.WinForms.Guna2TextBox addressRegis;
         internal Guna.UI2.WinForms.Guna2TextBox emailRegis;
         private System.Windows.Forms.PictureBox picRegis;
-        private Guna.UI.WinForms.GunaAdvenceButton btn_Submit;
         private Guna.UI.WinForms.GunaCheckBox genderRegis;
         internal System.Windows.Forms.Label Clear;
+        internal System.Windows.Forms.Label btnSubmit;
     }
 }

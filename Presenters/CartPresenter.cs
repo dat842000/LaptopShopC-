@@ -18,7 +18,7 @@ namespace ProjectCsharp.Presenters
         }
         public void setBuyProducts()
         {
-            Model.setOrdering(View.CartProducts);
+            Model.setOrdering(View.BuyProducts);
         }
         public void setCartProduct()
         {

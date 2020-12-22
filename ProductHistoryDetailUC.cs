@@ -16,5 +16,10 @@ namespace ProjectCsharp
         {
             InitializeComponent();
         }
+
+        private void Quantity_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

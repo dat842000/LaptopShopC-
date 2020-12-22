@@ -17,7 +17,9 @@ namespace ProjectCsharp
     {
         private CartPresenter cartPresenter;
         private UserProfilePresenter ProfilePresenter;
-        private List<OrderDetailModel> cartProducts;
+        private List<ProductModel> cartProducts;
+        private List<ProductModel> displayProducts;
+        private List<OrderDetailModel> buyProducts = new List<OrderDetailModel>();
         private string _Fullname = null;
         public frmCart()
         {
@@ -29,7 +31,7 @@ namespace ProjectCsharp
 
             loadPanel();
         }
-        public List<OrderDetailModel> CartProducts
+        public List<ProductModel> CartProducts
         {
             get
             {
@@ -40,14 +42,21 @@ namespace ProjectCsharp
                 cartProducts = value;
             }
         }
+        public List<OrderDetailModel> BuyProducts
+        {
+            get
+            {
+                return buyProducts;
+            }
+        }
 
 
         public string UserImg { get => throw new NotImplementedException(); set { if (value != null) { pictureProfile.Image = new Bitmap(Application.StartupPath + "\\Images\\UserProfileImg\\" + value); } } }
-        public string FullName { get { return _Fullname; } set { lbl_Fullname.Text ="Fullname : "+ value; } }
+        public string FullName { get { return _Fullname; } set { lbl_Fullname.Text = "Fullname : " + value; } }
         public string Email { get => throw new NotImplementedException(); set { lbl_Email.Text = "Email : " + value; } }
         public bool Gender
         {
-            get => throw new NotImplementedException(); 
+            get => throw new NotImplementedException();
             set
             {
                 if (_Fullname != null)
@@ -66,41 +75,70 @@ namespace ProjectCsharp
 
         private void loadPanel()
         {
-            
+            displayProducts = new List<ProductModel>();
             for (int i = 0; i < cartProducts.Count; i++)
             {
-                var UsersGrid = new CartItem
+                if (cartProducts.ElementAt(i).UnitInStock > 0)
                 {
-                    name = cartProducts.ElementAt(i).ProductName,
-                    urlImg = cartProducts.ElementAt(i).ImgUrl,
-                    unitprice = cartProducts.ElementAt(i).UnitPrice.ToString(),
-                };
-                UsersGrid.MyForm = this;
-                UsersGrid.UserControlButtonClicked += new
-                    EventHandler(MyUserControl_UserControlButtonClicked);
-                displayCartPanel.Controls.Add(UsersGrid);
+                    var UsersGrid = new CartItem
+                    {
+                        name = cartProducts.ElementAt(i).ProductName,
+                        urlImg = cartProducts.ElementAt(i).ImgUrl,
+                        unitprice = cartProducts.ElementAt(i).UnitPrice.ToString(),
+                        Quantity = cartProducts.ElementAt(i).UnitInStock,
+                    };
+                    displayProducts.Add(cartProducts.ElementAt(i));
+                    UsersGrid.MyForm = this;
+                    UsersGrid.UserControlButtonClicked += new
+                        EventHandler(MyUserControl_UserControlButtonClicked);
+                    UsersGrid.changQuantity += new EventHandler(MyUserControl_changQuantity);
+                    displayCartPanel.Controls.Add(UsersGrid);
+                }
             }
             TextChanged();
-            
+
         }
         private CartItem selectedUser;
-        private static int breakFlag=0;
-        
+        private static int breakFlag = 0;
+        private void MyUserControl_changQuantity(object sender, EventArgs e)
+        {
+            selectedUser = (CartItem)sender;
+            for (int i = 0; i < displayProducts.Count; i++)
+            {
+                if (selectedUser.name.Equals(displayProducts.ElementAt(i).ProductName))
+                {
+                    displayProducts.ElementAt(i).UnitInStock = selectedUser.Quantity;
+                    breakFlag = 1;
+                    break;
+                }
+
+            }
+
+            TextChanged();
+        }
         private void MyUserControl_UserControlButtonClicked(object sender, EventArgs e)
         {
             if (breakFlag == 0)
             {
                 selectedUser = (CartItem)sender;
+                for (int i = 0; i < displayProducts.Count; i++)
+                {
+                    if (selectedUser.name.Equals(displayProducts.ElementAt(i).ProductName))
+                    {
+                        displayCartPanel.Controls.RemoveAt(i);
+                        displayProducts.RemoveAt(i);
+                        breakFlag = 1;
+                        break;
+                    }
+                }
                 for (int i = 0; i < cartProducts.Count; i++)
                 {
                     if (selectedUser.name.Equals(cartProducts.ElementAt(i).ProductName))
                     {
-                        cartProducts.Remove(cartProducts.ElementAt(i));
-                        displayCartPanel.Controls.RemoveAt(i);
+                        cartProducts.ElementAt(i).UnitInStock = 0;
                         breakFlag = 1;
                         break;
                     }
-
                 }
             }
             else
@@ -113,27 +151,41 @@ namespace ProjectCsharp
         private new void TextChanged()
         {
             Double subTotal = 0;
-            for (int i = 0; i < cartProducts.Count; i++)
+            for (int i = 0; i < displayProducts.Count; i++)
             {
-                subTotal += cartProducts.ElementAt(i).UnitPrice;
+                subTotal += displayProducts.ElementAt(i).UnitPrice * displayProducts.ElementAt(i).UnitInStock;
+
             }
             Total.Text = "Total : " + subTotal + " $";
         }
 
-        
 
-        
+
+
 
         private void btn_Buy_Click(object sender, EventArgs e)
         {
-            for(int i = 0; i < cartProducts.Count; i++)
-            { 
-                cartProducts.ElementAt(i).OrderDate = DateTime.Now;
-                cartProducts.ElementAt(i).OrderStatus = "Pending";
-                displayCartPanel.Controls.RemoveAt(0);
+            for (int i = 0; i < cartProducts.Count; i++)
+            {
+                if (cartProducts.ElementAt(i).UnitInStock > 0)
+                {
+                    OrderDetailModel detail = new OrderDetailModel
+                    {
+                        ProductID = cartProducts.ElementAt(i).ProductID,
+                        UnitPrice = cartProducts.ElementAt(i).UnitPrice,
+                        Quantity = cartProducts.ElementAt(i).UnitInStock,
+                        ImgUrl = cartProducts.ElementAt(i).ImgUrl,
+                        OrderStatus = "Pending",
+                        OrderDate = DateTime.Now,
+                        Specs = cartProducts.ElementAt(i).Specs
+                    };
+                    buyProducts.Add(detail);
+                    cartProducts.ElementAt(i).UnitInStock = 0;
+                    displayCartPanel.Controls.RemoveAt(0);
+                }
             }
             cartPresenter.setBuyProducts();
-            cartProducts = new List<OrderDetailModel>();
+            buyProducts = new List<OrderDetailModel>();
             cartPresenter.setCartProduct();
             TextChanged();
             loadPanel();

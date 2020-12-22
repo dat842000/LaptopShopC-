@@ -19,6 +19,8 @@ namespace ProjectCsharp
         private RegisterPresenter registerPresenter;
         private bool cancelClose;
         private frmMainMenu parent;
+        private string sourcePath = "";
+        private string destinationPath = "";
         private string url = "";
         private bool regisState = false;
 
@@ -67,9 +69,9 @@ namespace ProjectCsharp
         }
         public bool Gender
         {
-            get 
+            get
             {
-                return genderRegis.Checked; 
+                return genderRegis.Checked;
             }
         }
 
@@ -84,23 +86,25 @@ namespace ProjectCsharp
             {
                 regisState = value;
             }
-            get 
-            { 
-                return regisState; 
+            get
+            {
+                return regisState;
             }
         }
-        private void frmLogin_FormClosing(object sender,CancelEventArgs e)
+        private void frmLogin_FormClosing(object sender, CancelEventArgs e)
         {
             e.Cancel = cancelClose;
             cancelClose = false;
         }
 
 
-        public void OnLoginSuccess(){
+        public void OnLoginSuccess()
+        {
             parent.OnLoginSuccess();
         }
 
-        public void OnLoginFailure(string errorMessage){
+        public void OnLoginFailure(string errorMessage)
+        {
             parent.OnLoginFailure(errorMessage);
         }
 
@@ -125,12 +129,11 @@ namespace ProjectCsharp
 
         private void Login_Click_1(object sender, EventArgs e)
         {
-            pn_regis.Visible = true ;
+            pn_regis.Visible = true;
             guna2Transition1.ShowSync(pn_login);
-            
-        }
 
-        private void Clear_Click(object sender, EventArgs e)
+        }
+        private void ClearRegisForm()
         {
             userRisgis.Text = "";
             passRegis.Text = "";
@@ -140,25 +143,38 @@ namespace ProjectCsharp
             addressRegis.Text = "";
             genderRegis.Checked = false;
             picRegis.Image = null;
-            url = "";
+            sourcePath = "";
+        }
+        private void Clear_Click(object sender, EventArgs e)
+        {
+            ClearRegisForm();
         }
 
         private void Register_Click(object sender, EventArgs e)
         {
-            FileInfo fileInfo = new FileInfo(url);
-            url = userRisgis.Text + fileInfo.Extension;
+            if (!sourcePath.Equals(""))
+            {
+                FileInfo fileInfo = new FileInfo(sourcePath);
+                url = userRisgis.Text + fileInfo.Extension;
+                destinationPath = @"\Images\UserProfileImg\" + userRisgis.Text + fileInfo.Extension;
+            }
             registerPresenter.register();
             if (regisState)
             {
-                fileInfo.CopyTo(@"D:\Laptrinh\source\repos\ProjectC#\bin\Debug\Images\UserProfileImg\" + userRisgis.Text + fileInfo.Extension);
+                if (!destinationPath.Equals(""))
+                {
+                    File.Copy(sourcePath, Application.StartupPath + destinationPath);
+                }
                 Nofitication nofitication = new Nofitication("Register Success");
                 nofitication.ShowDialog();
+                ClearRegisForm();
             }
             else
             {
                 Nofitication nofitication = new Nofitication("Register failed");
                 nofitication.ShowDialog();
             }
+
         }
 
         private void btn_Submit_Click(object sender, EventArgs e)
@@ -168,7 +184,7 @@ namespace ProjectCsharp
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     picRegis.Image = Image.FromFile(ofd.FileName);
-                    url = ofd.FileName;                   
+                    sourcePath = ofd.FileName;
                 }
             }
         }

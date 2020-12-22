@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.guna2ShadowForm1 = new Guna.UI2.WinForms.Guna2ShadowForm(this.components);
             this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.gunaNumeric = new Guna.UI.WinForms.GunaNumeric();
             this.btn_Delete = new System.Windows.Forms.Label();
             this.gunaLabel2 = new Guna.UI.WinForms.GunaLabel();
             this.gunaLabel1 = new Guna.UI.WinForms.GunaLabel();
@@ -42,6 +43,7 @@
             // guna2ShadowPanel1
             // 
             this.guna2ShadowPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ShadowPanel1.Controls.Add(this.gunaNumeric);
             this.guna2ShadowPanel1.Controls.Add(this.btn_Delete);
             this.guna2ShadowPanel1.Controls.Add(this.gunaLabel2);
             this.guna2ShadowPanel1.Controls.Add(this.gunaLabel1);
@@ -57,6 +59,25 @@
             this.guna2ShadowPanel1.MouseEnter += new System.EventHandler(this.gunaPictureBox1_MouseEnter);
             this.guna2ShadowPanel1.MouseLeave += new System.EventHandler(this.gunaPictureBox1_MouseLeave);
             // 
+            // gunaNumeric
+            // 
+            this.gunaNumeric.BackColor = System.Drawing.Color.Transparent;
+            this.gunaNumeric.BaseColor = System.Drawing.Color.White;
+            this.gunaNumeric.BorderColor = System.Drawing.Color.Silver;
+            this.gunaNumeric.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.gunaNumeric.ButtonForeColor = System.Drawing.Color.White;
+            this.gunaNumeric.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.gunaNumeric.ForeColor = System.Drawing.Color.Black;
+            this.gunaNumeric.Location = new System.Drawing.Point(373, 59);
+            this.gunaNumeric.Maximum = ((long)(9999999));
+            this.gunaNumeric.Minimum = ((long)(0));
+            this.gunaNumeric.Name = "gunaNumeric";
+            this.gunaNumeric.Radius = 6;
+            this.gunaNumeric.Size = new System.Drawing.Size(75, 30);
+            this.gunaNumeric.TabIndex = 9;
+            this.gunaNumeric.Text = "gunaNumeric1";
+            this.gunaNumeric.Value = ((long)(0));
+            // 
             // btn_Delete
             // 
             this.btn_Delete.AutoSize = true;
@@ -68,7 +89,7 @@
             this.btn_Delete.Size = new System.Drawing.Size(52, 19);
             this.btn_Delete.TabIndex = 8;
             this.btn_Delete.Text = "Delete";
-            this.btn_Delete.Click += new System.EventHandler(this.Click1);
+            this.btn_Delete.Click += new System.EventHandler(this.Delete_Click);
             this.btn_Delete.MouseEnter += new System.EventHandler(this.btn_Delete_MouseEnter);
             this.btn_Delete.MouseLeave += new System.EventHandler(this.btn_Delete_MouseLeave);
             // 
@@ -76,7 +97,7 @@
             // 
             this.gunaLabel2.AutoSize = true;
             this.gunaLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
-            this.gunaLabel2.Location = new System.Drawing.Point(456, 59);
+            this.gunaLabel2.Location = new System.Drawing.Point(476, 59);
             this.gunaLabel2.Name = "gunaLabel2";
             this.gunaLabel2.Size = new System.Drawing.Size(59, 25);
             this.gunaLabel2.TabIndex = 7;
@@ -131,5 +152,6 @@
         private Guna.UI.WinForms.GunaLabel gunaLabel1;
         private Guna.UI.WinForms.GunaPictureBox gunaPictureBox1;
         private System.Windows.Forms.Label btn_Delete;
+        private Guna.UI.WinForms.GunaNumeric gunaNumeric;
     }
 }

@@ -17,6 +17,7 @@ namespace ProjectCsharp
         string laptopName;
         string unitPrice;
         float ratingPoint;
+        List<string> listSubImgs;
         public event EventHandler UserControlButtonClicked;
         public Laptop()
         {
@@ -69,6 +70,17 @@ namespace ProjectCsharp
             {
                 ratingPoint =  (float) value;
                 guna2RatingStar1.Value = (float) value;
+            }
+        }
+        public List<string> SubImgs
+        {
+            get
+            {
+                return listSubImgs;
+            }
+            set
+            {
+                listSubImgs = value;
             }
         }
 

@@ -18,7 +18,9 @@ namespace ProjectCsharp
     {
         private ProductsPresenter productsPresenter;
         private List<ProductModel> productsList;
-        private List<OrderDetailModel> cartProducts;
+        private List<ProductModel> cartProducts;
+        private int brandID = 0;
+        private string searchText = "";
         private string SelectedItem="";
         private Boolean Login;
         public frmShop(Boolean LoginStatus)
@@ -31,7 +33,7 @@ namespace ProjectCsharp
             Login = LoginStatus;
         }
 
-        public List<OrderDetailModel> CartProducts
+        public List<ProductModel> CartProducts
         {
             get {        
                 return cartProducts;              
@@ -49,8 +51,43 @@ namespace ProjectCsharp
                 productsList = value;
             }
         }
+
+        public int BrandID
+        {
+            get
+            {
+                return brandID;
+            }
+        }
+
+        public string searchProduct
+        {
+            get
+            {
+                return searchText;
+            }
+        }
+        private void ClearImgForm(int size)
+        {
+            gunaPictureBox1.Image = null;
+            gunaPictureBox2.Image = null;
+            gunaPictureBox3.Image = null;
+            gunaPictureBox4.Image = null;
+            gunaPictureBox1.Enabled = false;
+            gunaPictureBox2.Enabled = false;
+            gunaPictureBox3.Enabled = false;
+            gunaPictureBox4.Enabled = false;
+            for (int i = 0; i < size; i++)
+            {
+                if (i == 0) gunaPictureBox1.Enabled = true;
+                if (i == 1) gunaPictureBox2.Enabled = true;
+                if (i == 2) gunaPictureBox3.Enabled = true;
+                if (i == 3) gunaPictureBox4.Enabled = true;
+            }
+        }
         private void loadPanel()
         {
+            flowPanel.Controls.Clear();
             for (int i = 0; i < productsList.Count; i++)
             {
                 var UsersGrid = new Laptop
@@ -59,35 +96,96 @@ namespace ProjectCsharp
                     urlImg = productsList.ElementAt(i).ImgUrl,
                     unitprice = productsList.ElementAt(i).UnitPrice.ToString(),
                     rating = productsList.ElementAt(i).ratingPoint,
+                    SubImgs = productsList.ElementAt(i).SubImgs,
                 };
                 UsersGrid.MyForm = this;
                 UsersGrid.UserControlButtonClicked += new
                     EventHandler(MyUserControl_UserControlButtonClicked);
                 flowPanel.Controls.Add(UsersGrid);
             }
-            guna2PictureBox1.Image = new Bitmap(Application.StartupPath + "\\Images\\" + productsList.ElementAt(0).ImgUrl);
-            gunaPictureBox1.Image = new Bitmap(Application.StartupPath + "\\Images\\Acer Nitro 5\\Acer Nitro 5(1).png");
-            gunaPictureBox2.Image = new Bitmap(Application.StartupPath + "\\Images\\Acer Nitro 5\\Acer Nitro 5(2).png");
-            gunaPictureBox3.Image = new Bitmap(Application.StartupPath + "\\Images\\Acer Nitro 5\\Acer Nitro 5(3).jpg");
-            lbl_Laptopname.Text = productsList.ElementAt(0).ProductName;
-            Price.Text = productsList.ElementAt(0).UnitPrice.ToString() + " $";
+            if (productsList.Count != 0)
+            {
+                guna2PictureBox1.Image = new Bitmap(Application.StartupPath + "\\Images\\" + productsList.ElementAt(0).ImgUrl);
+                List<string> listSubImg = productsList.ElementAt(0).SubImgs;
+                string subFolderName = productsList.ElementAt(0).ProductName;
+                if (listSubImg != null)
+                {
+                    ClearImgForm(listSubImg.Count - 1);
+                    for (int i = 0; i < listSubImg.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            gunaPictureBox1.Image = new Bitmap(Application.StartupPath + "\\Images\\" + subFolderName + "\\" + listSubImg.ElementAt(i));
+                        }
+                        if (i == 1)
+                        {
+                            gunaPictureBox2.Image = new Bitmap(Application.StartupPath + "\\Images\\" + subFolderName + "\\" + listSubImg.ElementAt(i));
+                        }
+                        if (i == 2)
+                        {
+                            gunaPictureBox3.Image = new Bitmap(Application.StartupPath + "\\Images\\" + subFolderName + "\\" + listSubImg.ElementAt(i));
+                        }
+                        if (i == 3)
+                        {
+                            gunaPictureBox4.Image = new Bitmap(Application.StartupPath + "\\Images\\" + subFolderName + "\\" + listSubImg.ElementAt(i));
+                        }
+                    }
+                }
+                lbl_Laptopname.Text = productsList.ElementAt(0).ProductName;
+                Price.Text = productsList.ElementAt(0).UnitPrice.ToString() + " $";
+            }
+            else
+            {
+                ClearImgForm(0);
+                lbl_Laptopname.Text = "";
+                Price.Text = "";
+            }
         }
-        private Laptop selectedUser;
+        private Laptop selectedLaptop;
         private void MyUserControl_UserControlButtonClicked(object sender, EventArgs e)
         {
-            selectedUser = (Laptop)sender;
+            selectedLaptop = (Laptop)sender;
             gunaTransition1.HideSync(guna2PictureBox1);
-            guna2PictureBox1.Image = new Bitmap(Application.StartupPath +"\\Images\\"+ selectedUser.urlImg);
-            lbl_Laptopname.Text = selectedUser.name;
-            Price.Text = selectedUser.unitprice.ToString() + " $";
+            guna2PictureBox1.Image = new Bitmap(Application.StartupPath +"\\Images\\"+ selectedLaptop.urlImg);
+            string subFolderName = selectedLaptop.name;
+            if (selectedLaptop.SubImgs != null)
+            {
+                ClearImgForm(selectedLaptop.SubImgs.Count);
+                for (int i = 0; i < selectedLaptop.SubImgs.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        gunaPictureBox1.Image = new Bitmap(Application.StartupPath + "\\Images\\" + subFolderName + "\\" + selectedLaptop.SubImgs.ElementAt(i));
+                    }
+                    if (i == 1)
+                    {
+                        gunaPictureBox2.Image = new Bitmap(Application.StartupPath + "\\Images\\" + subFolderName + "\\" + selectedLaptop.SubImgs.ElementAt(i));
+                    }
+                    if (i == 2)
+                    {
+                        gunaPictureBox3.Image = new Bitmap(Application.StartupPath + "\\Images\\" + subFolderName + "\\" + selectedLaptop.SubImgs.ElementAt(i));
+                    }
+                    if (i == 3)
+                    {
+                        gunaPictureBox4.Image = new Bitmap(Application.StartupPath + "\\Images\\" + subFolderName + "\\" + selectedLaptop.SubImgs.ElementAt(i));
+                    }
+                }
+            }
+            lbl_Laptopname.Text = selectedLaptop.name;
+            Price.Text = selectedLaptop.unitprice.ToString() + " $";
             gunaTransition1.ShowSync(guna2PictureBox1);
-            SelectedItem = selectedUser.name;
+            SelectedItem = selectedLaptop.name;
         }
         private new void TextChanged()
         {
-            if (cartProducts.Count > 0)
+            int Total = 0;
+            foreach (var p in cartProducts)
             {
-                btn_AddToCart.Text = "Add To Cart (" + cartProducts.Count + ")";
+                Total += p.UnitInStock;
+            }
+            if (Total > 0)
+            {
+                btn_AddToCart.Text = "Add To Cart (" + Total + ")";
             }
             else
             {
@@ -106,19 +204,11 @@ namespace ProjectCsharp
             {
                 if (SelectedItem != "")
                 {
-                    for (int i = 0; i < productsList.Count; i++)
+                    for (int i = 0; i < cartProducts.Count; i++)
                     {
-                        if (SelectedItem.Equals(productsList.ElementAt(i).ProductName))
+                        if (SelectedItem.Equals(cartProducts.ElementAt(i).ProductName))
                         {
-                            OrderDetailModel orderDetail = new OrderDetailModel
-                            {
-                                ProductID = productsList.ElementAt(i).ProductID,
-                                ProductName = productsList.ElementAt(i).ProductName,
-                                ImgUrl = productsList.ElementAt(i).ImgUrl,
-                                UnitPrice = productsList.ElementAt(i).UnitPrice,
-                                Specs = productsList.ElementAt(i).Specs,
-                            };
-                            cartProducts.Add(orderDetail);
+                            cartProducts.ElementAt(i).UnitInStock++;
                             productsPresenter.setCartProduct();
                             break;
                         }
@@ -156,15 +246,57 @@ namespace ProjectCsharp
             }
         }
 
-        private void guna2CircleButton6_Click(object sender, EventArgs e)
+        private void btn_OpenBrand_Click(object sender, EventArgs e)
         {
             if (!guna2ShadowPanel11.Visible) guna2Transition1.ShowSync(guna2ShadowPanel11);
             else guna2Transition1.HideSync(guna2ShadowPanel11);
         }
 
-        private void guna2CircleButton12_Click(object sender, EventArgs e)
+        private void btn_CloseBrand_Click(object sender, EventArgs e)
         {
             guna2Transition2.HideSync(guna2ShadowPanel11);
+        }
+        private void getProductByBrand(int ID)
+        {
+            brandID = ID;
+            productsPresenter.getProductByBrand();
+            loadPanel();
+        }
+
+        private void lenovoBrand_Click(object sender, EventArgs e)
+        {
+            getProductByBrand(1);
+        }
+
+        private void hpBrand_Click(object sender, EventArgs e)
+        {
+            getProductByBrand(3);
+        }
+
+        private void asusBrand_Click(object sender, EventArgs e)
+        {
+            getProductByBrand(5);
+        }
+
+        private void acerBrand_Click(object sender, EventArgs e)
+        {
+            getProductByBrand(4);
+        }
+
+        private void msiBrand_Click(object sender, EventArgs e)
+        {
+            getProductByBrand(2);
+        }
+        private void getAll_Click(object sender, EventArgs e)
+        {
+            getProductByBrand(0);
+        }
+
+        private void lbl_search_TextChanged(object sender, EventArgs e)
+        {
+            searchText = lbl_search.Text;
+            productsPresenter.getSearchProducts();
+            loadPanel();
         }
     }
 }

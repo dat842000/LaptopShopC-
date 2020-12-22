@@ -24,5 +24,15 @@ namespace ProjectCsharp.Presenters
         {
             View.CartProducts = Model.GetCartProduct();
         }
+        public void getProductByBrand()
+        {
+            int ID = View.BrandID;
+            View.Products = Model.getProductByBrand(ID);
+        }
+        public void getSearchProducts()
+        {
+            string searchText = View.searchProduct;
+            View.Products = Model.searchText(searchText);
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace DataObjects.AdoNet
         public IOrderDetailDao OrderDetailDao { get { return new OrderDetailDao(); } }
         public IProductDao ProductDao { get { return new ProductDao(); } }
         public IBrandDao BrandDao { get { return new BrandDao(); } }
+        public ISubImgDao SubImgDao { get { return new SubImgDao(); } }
     }
 }

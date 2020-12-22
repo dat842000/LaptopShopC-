@@ -19,6 +19,7 @@ namespace ActionService
         static readonly IAccountDao accountDao = factory.AccountDao;
         static readonly IOrderDao orderDao = factory.OrderDao;
         static readonly IOrderDetailDao orderDetailDao = factory.OrderDetailDao;
+        static readonly ISubImgDao subImgDao = factory.SubImgDao;
 
         //public List<Brand> GetBrands()
         //{
@@ -30,15 +31,15 @@ namespace ActionService
             return productDao.GetProducts();
         }
 
-        //public List<Product> GetProductsByBrand(int BrandID, string sortExpression)
-        //{
-        //    return productDao.GetProductsByBrand(BrandID, sortExpression);
-        //}
+        public List<Product> GetProductsByBrand(int BrandID, string sortExpression)
+        {
+            return productDao.GetProductsByBrand(BrandID, sortExpression);
+        }
 
-        //public List<Product> SearchProducts(string productName, string sortExpression)
-        //{
-        //    return productDao.SearchProducts(productName, sortExpression);
-        //}
+        public List<Product> SearchProducts(string productName, string sortExpression)
+        {
+            return productDao.SearchProducts(productName, sortExpression);
+        }
 
         public Account GetAccount(string Username, string Password)
         {
@@ -80,6 +81,10 @@ namespace ActionService
         public void InsertOrderDetail(OrderDetail orderDetail)
         {
             orderDetailDao.InsertOrderDetail(orderDetail);
+        }
+        public List<SubImg> GetSubImgByProductID(int ProductID)
+        {
+            return subImgDao.GetSubImgByProductID(ProductID);
         }
 
         //public bool Login(string email, string password)

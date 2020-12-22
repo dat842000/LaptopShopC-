@@ -15,5 +15,6 @@ namespace ProjectCsharp.Models.Models
         public Double ratingPoint { get; set; }
         public int UnitInStock { get; set; }
         public string ImgUrl { get; set; }
+        public List<string> SubImgs { get; set; }
     }
 }

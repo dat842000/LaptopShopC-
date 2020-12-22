@@ -44,7 +44,7 @@ namespace ProjectCsharp
                 this.Height = 75;
             }
         }
-        public void OrderDetail(string url, string productname, string pending, string processing, string specs, string unitprice)
+        public void OrderDetail(string url, string productname, string pending, string processing, string specs, string unitprice, int Quantity)
         {
             ProductHistoryDetailUC detail = new ProductHistoryDetailUC();
             detail.img.Image = new Bitmap(Application.StartupPath + "\\Images\\" + url);
@@ -53,6 +53,7 @@ namespace ProjectCsharp
             detail.processing.Image = new Bitmap(Application.StartupPath + "\\Images\\btnImg\\" + processing);
             detail.lbl_specs.Text = specs;
             detail.lbl_unitprice.Text = unitprice;
+            detail.Quantity.Text = Quantity.ToString();
             detail.Dock = DockStyle.Top;
             panel1.Controls.Add(detail);
         }

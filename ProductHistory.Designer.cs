@@ -37,6 +37,7 @@
             this.bunifuImageButton1 = new Bunifu.Framework.UI.BunifuImageButton();
             this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl_Total = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,7 +95,7 @@
             // 
             this.bunifuImageButton1.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.Image")));
             this.bunifuImageButton1.ImageActive = null;
-            this.bunifuImageButton1.Location = new System.Drawing.Point(571, 23);
+            this.bunifuImageButton1.Location = new System.Drawing.Point(627, 23);
             this.bunifuImageButton1.Name = "bunifuImageButton1";
             this.bunifuImageButton1.Size = new System.Drawing.Size(30, 34);
             this.bunifuImageButton1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -110,7 +111,7 @@
             this.bunifuSeparator2.LineThickness = 1;
             this.bunifuSeparator2.Location = new System.Drawing.Point(2, -2);
             this.bunifuSeparator2.Name = "bunifuSeparator2";
-            this.bunifuSeparator2.Size = new System.Drawing.Size(598, 10);
+            this.bunifuSeparator2.Size = new System.Drawing.Size(655, 10);
             this.bunifuSeparator2.TabIndex = 9;
             this.bunifuSeparator2.Transparency = 255;
             this.bunifuSeparator2.Vertical = false;
@@ -120,8 +121,18 @@
             this.panel1.AutoSize = true;
             this.panel1.Location = new System.Drawing.Point(28, 78);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(531, 305);
+            this.panel1.Size = new System.Drawing.Size(595, 305);
             this.panel1.TabIndex = 10;
+            // 
+            // lbl_Total
+            // 
+            this.lbl_Total.AutoSize = true;
+            this.lbl_Total.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Total.Location = new System.Drawing.Point(572, 29);
+            this.lbl_Total.Name = "lbl_Total";
+            this.lbl_Total.Size = new System.Drawing.Size(37, 17);
+            this.lbl_Total.TabIndex = 2;
+            this.lbl_Total.Text = "Total";
             // 
             // ProductHistory
             // 
@@ -131,13 +142,14 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.bunifuSeparator2);
             this.Controls.Add(this.bunifuImageButton1);
+            this.Controls.Add(this.lbl_Total);
             this.Controls.Add(this.lbl_status);
             this.Controls.Add(this.lbl_quantity);
             this.Controls.Add(this.lbl_shippeddate);
             this.Controls.Add(this.lbl_orderdate);
             this.Controls.Add(this.lbl_ID);
             this.Name = "ProductHistory";
-            this.Size = new System.Drawing.Size(623, 72);
+            this.Size = new System.Drawing.Size(674, 72);
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -153,5 +165,6 @@
         public System.Windows.Forms.Label lbl_ID;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator2;
         private System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.Label lbl_Total;
     }
 }

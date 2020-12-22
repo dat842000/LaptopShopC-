@@ -113,7 +113,8 @@ namespace ProjectCsharp
 
         private void btn_Cart_Click(object sender, EventArgs e)
         {
-            if (status == LoginStatus.LoggedIn) {
+            if (status == LoginStatus.LoggedIn)
+            {
                 ActivateButton(sender, RGBColors.color2);
                 lastColorBtn = RGBColors.color2;
                 OpenChildForm(new frmCart());

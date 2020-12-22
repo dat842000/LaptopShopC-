@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainMenu));
             this.panelMenu = new System.Windows.Forms.Panel();
             this.btn_Profile = new FontAwesome.Sharp.IconButton();
             this.btn_History = new FontAwesome.Sharp.IconButton();
@@ -215,7 +216,7 @@
             // btn_Home
             // 
             this.btn_Home.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.btn_Home.Image = global::ProjectCsharp.Properties.Resources.thumb14323749944470_removebg_preview;
+            this.btn_Home.Image = ((System.Drawing.Image)(resources.GetObject("btn_Home.Image")));
             this.btn_Home.Location = new System.Drawing.Point(34, 3);
             this.btn_Home.Name = "btn_Home";
             this.btn_Home.Size = new System.Drawing.Size(145, 108);

@@ -13,5 +13,6 @@ namespace DataObjects
         IOrderDetailDao OrderDetailDao { get; }
         IProductDao ProductDao { get; }
         IBrandDao BrandDao { get; }
+        ISubImgDao SubImgDao { get; }
     }
 }

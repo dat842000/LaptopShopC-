@@ -53,6 +53,7 @@ namespace ProjectCsharp
                 }
                 guna2DataGridView2.Rows[i].Cells[5].Value = orderProducts.ElementAt(i).Specs.ToString();
                 guna2DataGridView2.Rows[i].Cells[6].Value = orderProducts.ElementAt(i).UnitPrice.ToString() + " $";
+                guna2DataGridView2.Rows[i].Cells[7].Value = orderProducts.ElementAt(i).Quantity.ToString();
             }
         }
 
@@ -63,12 +64,18 @@ namespace ProjectCsharp
         public void TextChange()
         {
             int selectedRowIndex=0;
+            Double total = 0;
+            foreach(var p in orderProducts)
+            {
+                total += p.UnitPrice * p.Quantity;
+            }
             if (orderProducts.Count > 0)
             {
                 selectedRowIndex = guna2DataGridView2.CurrentCell.RowIndex;
                 DateTime orderDate = orderProducts.ElementAt(selectedRowIndex).OrderDate;
                 lb_orderDate.Text = orderDate.ToShortDateString();
                 lb_ExpectedDate.Text = orderDate.AddDays(+3).ToShortDateString();
+                lbl_Total.Text = total.ToString()+" $";
             }
         }
     }

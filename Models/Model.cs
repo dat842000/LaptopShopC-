@@ -18,7 +18,7 @@ namespace ProjectCsharp.Models
         static List<OrderModel> listOrder;
 
         // danh sach san pham trong gio hang
-        static List<OrderDetailModel> listCartProducts;
+        static List<ProductModel> listCartProducts;
 
         // danh sach san pham
         static List<ProductModel> listProduct;
@@ -58,17 +58,25 @@ namespace ProjectCsharp.Models
         {
             listProduct = new List<ProductModel>();
             var products = service.GetProducts();
-            foreach (var productBussinessObject in products)
+            foreach (var product in products)
             {
+                List<string> listSubImg = new List<string>();
+                var subImgs = service.GetSubImgByProductID(product.ProductID);
+                foreach( var sub in subImgs)
+                {
+                    string url = sub.UrlImg;
+                    listSubImg.Add(url);
+                }
                 ProductModel p = new ProductModel
                 {
-                    ProductID = productBussinessObject.ProductID,
-                    ProductName = productBussinessObject.ProductName,
-                    UnitPrice = productBussinessObject.UnitPrice,
-                    Specs = productBussinessObject.Specs,
-                    UnitInStock = productBussinessObject.Quantity,
-                    ratingPoint = productBussinessObject.RatingPoint,
-                    ImgUrl = productBussinessObject.ImgUrl
+                    ProductID = product.ProductID,
+                    ProductName = product.ProductName,
+                    UnitPrice = product.UnitPrice,
+                    Specs = product.Specs,
+                    UnitInStock = product.Quantity,
+                    ratingPoint = product.RatingPoint,
+                    ImgUrl = product.ImgUrl,
+                    SubImgs = listSubImg
                 };
                 listProduct.Add(p);
             }
@@ -123,27 +131,51 @@ namespace ProjectCsharp.Models
         // cap nhat du lieu 
 
         // thong tin gio hang
-        public void SetCartProducts(List<OrderDetailModel> cartProduct)
+        public void SetCartProducts(List<ProductModel> cartProduct)
         {
             listCartProducts = cartProduct;
         }
-        public List<OrderDetailModel> GetCartProduct()
+        public List<ProductModel> GetCartProduct()
         {
-            if (listCartProducts == null) listCartProducts = new List<OrderDetailModel>();
+            if (listCartProducts == null)
+            { 
+                listCartProducts = new List<ProductModel>();
+                listProduct = GetProductsData();
+                foreach(var product in listProduct)
+                {
+                    ProductModel p = new ProductModel
+                    {
+                        ProductID = product.ProductID,
+                        ProductName = product.ProductName,
+                        UnitPrice = product.UnitPrice,
+                        Specs = product.Specs,
+                        UnitInStock = 0,
+                        ratingPoint = product.ratingPoint,
+                        ImgUrl = product.ImgUrl,
+                    };
+                    listCartProducts.Add(p);
+                }
+            }
+            
             return listCartProducts;
         }
 
         // tao hoa don
         public void setOrdering(List<OrderDetailModel> buyProducts)
         {
-            // set Id order         
+            // set total order
+            int Total = 0;
+            foreach(var orderdetail in buyProducts)
+            {
+                Total += orderdetail.Quantity;
+            }
             Order order = new Order
             {
                 AccountID = user.AccountID,
                 OrderDate = DateTime.Now,
                 ShippedDate = null,
                 OrderStatus = "Processing",
-                Quantity = buyProducts.Count,
+                Quantity = Total,
             };
             service.InsertOrder(order);
             for (int i = 0; i < buyProducts.Count; i++)
@@ -153,7 +185,7 @@ namespace ProjectCsharp.Models
                     OrderID = order.OrderID,
                     ProductID = buyProducts.ElementAt(i).ProductID,
                     UnitPrice = buyProducts.ElementAt(i).UnitPrice,
-                    Quantity = 1,
+                    Quantity = buyProducts.ElementAt(i).Quantity,
                     ImgUrl = buyProducts.ElementAt(i).ImgUrl,
                     OrderStatus = buyProducts.ElementAt(i).OrderStatus,
                     Specs = buyProducts.ElementAt(i).Specs
@@ -203,7 +235,6 @@ namespace ProjectCsharp.Models
         }
 
         // dang ky tai khoan
-
         public Boolean Register(string Username, string Password, string Fullname, string Phone, string Email, string Address, Boolean Gender, string urlImg)
         {
             Boolean result = false;
@@ -226,11 +257,79 @@ namespace ProjectCsharp.Models
             }
             return result;
         }
+        // logout
         public void Logout()
         {
             user = new UserProfileModel();
             listOrder = new List<OrderModel>();
-            listCartProducts = new List<OrderDetailModel>();
+            listCartProducts = new List<ProductModel>();
+        }
+
+        // lay product by brand
+        public List<ProductModel> getProductByBrand(int BrandID)
+        {
+            if (BrandID != 0)
+            {
+                List<Product> listProductGetByBrand = service.GetProductsByBrand(BrandID, "");
+                listProduct = new List<ProductModel>();
+                foreach (Product product in listProductGetByBrand)
+                {
+                    List<string> listSubImg = new List<string>();
+                    var subImgs = service.GetSubImgByProductID(product.ProductID);
+                    foreach (var sub in subImgs)
+                    {
+                        string url = sub.UrlImg;
+                        listSubImg.Add(url);
+                    }
+                    ProductModel p = new ProductModel()
+                    {
+                        ProductID = product.ProductID,
+                        ProductName = product.ProductName,
+                        UnitPrice = product.UnitPrice,
+                        Specs = product.Specs,
+                        UnitInStock = product.Quantity,
+                        ratingPoint = product.RatingPoint,
+                        ImgUrl = product.ImgUrl,
+                        SubImgs = listSubImg
+                        
+                    };
+                    listProduct.Add(p);
+                }
+            }
+            else
+            {
+                GetProductsData();
+            }
+            return listProduct;
+        }
+        // search Product
+        public List<ProductModel> searchText(string searchText)
+        {
+            List<Product> searchProducts = service.SearchProducts(searchText, "");
+            listProduct = new List<ProductModel>();
+            foreach (Product product in searchProducts)
+            {
+                List<string> listSubImg = new List<string>();
+                var subImgs = service.GetSubImgByProductID(product.ProductID);
+                foreach (var sub in subImgs)
+                {
+                    string url = sub.UrlImg;
+                    listSubImg.Add(url);
+                }
+                ProductModel p = new ProductModel()
+                {
+                    ProductID = product.ProductID,
+                    ProductName = product.ProductName,
+                    UnitPrice = product.UnitPrice,
+                    Specs = product.Specs,
+                    UnitInStock = product.Quantity,
+                    ratingPoint = product.RatingPoint,
+                    ImgUrl = product.ImgUrl,
+                    SubImgs = listSubImg
+                };
+                listProduct.Add(p);
+            }
+            return listProduct;
         }
     }
 }

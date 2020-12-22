@@ -25,7 +25,7 @@ namespace ProjectCsharp
 
         }
 
-        public string UserImg { get => throw new NotImplementedException(); set { pictureProfile.Image = new Bitmap(Application.StartupPath + "\\Images\\UserProfileImg\\" + value); } }
+        public string UserImg { get => throw new NotImplementedException(); set { if (value != null) { pictureProfile.Image = new Bitmap(Application.StartupPath + "\\Images\\UserProfileImg\\" + value); } } }
         public string FullName { get => throw new NotImplementedException(); set { lb_fullname.Text = value; } }
         public string Email { get => throw new NotImplementedException(); set { lb_email.Text = value; } }
         public bool Gender { get => throw new NotImplementedException(); set { if (value) { lb_gender.Text = "Male"; } else { lb_gender.Text = "Female"; }; } }

@@ -12,8 +12,8 @@ namespace ActionService
         //List<Brand> GetBrands();
 
         List<Product> GetProducts();
-        //List<Product> GetProductsByBrand(int BrandID, string sortExpression);
-        //List<Product> SearchProducts(string productName, string sortExpression);
+        List<Product> GetProductsByBrand(int BrandID, string sortExpression);
+        List<Product> SearchProducts(string productName, string sortExpression);
 
         Account GetAccount(string Username, string Password);
 
@@ -25,6 +25,7 @@ namespace ActionService
         void InsertOrder(Order order);
         List<OrderDetail> GetOrderDetails(int OrderID);
         void InsertOrderDetail(OrderDetail orderDetail);
+        List<SubImg> GetSubImgByProductID(int ProductID);
 
     }
 }

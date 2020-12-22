@@ -16,15 +16,24 @@ namespace ProjectCsharp
         string url;
         string laptopName;
         string unitPrice;
+        int quantity;
         public event EventHandler UserControlButtonClicked;
+        public event EventHandler changQuantity;
         public CartItem()
         {
             InitializeComponent();
-            btn_Delete.Click += Click1;
+            btn_Delete.Click += Delete_Click;
+            gunaNumeric.Click += changeValue;
+
         }
-        public void Click1(object obj, EventArgs ea)
+        public void Delete_Click(object obj, EventArgs ea)
         {
             UserControlButtonClicked(this, EventArgs.Empty);
+        }
+        public void changeValue(object obj, EventArgs ea)
+        {
+            quantity =(int) gunaNumeric.Value;
+            changQuantity(this, EventArgs.Empty);
         }
         public string name
         {
@@ -54,6 +63,18 @@ namespace ProjectCsharp
             {
                 unitPrice = value;
                 gunaLabel2.Text = value + " $";
+            }
+        }
+        public int Quantity
+        {
+            get
+            {
+                return quantity;
+            }
+            set
+            {
+                quantity = value;
+                gunaNumeric.Value = value;
             }
         }
 

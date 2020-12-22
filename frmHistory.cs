@@ -34,8 +34,10 @@ namespace ProjectCsharp
         }
         private void displayProduct()
         {
+            
             for (int i = historyProducts.Count-1; i >= 0; i--)
             {
+                Double total = 0;
                 List<OrderDetailModel> listOrderDetail = historyProducts.ElementAt(i).OrderDetails;
                 ProductHistory ph = new ProductHistory(listOrderDetail.Count);
                 ph.lbl_ID.Text = historyProducts.ElementAt(i).OrderID.ToString();
@@ -52,13 +54,18 @@ namespace ProjectCsharp
                 ph.lbl_status.Text = historyProducts.ElementAt(i).OrderStatus;
                 for (int j = 0; j < listOrderDetail.Count; j++)
                 {
+                    total += listOrderDetail.ElementAt(j).UnitPrice * listOrderDetail.ElementAt(j).Quantity;
+                }
+                ph.lbl_Total.Text = total.ToString();
+                for (int j = 0; j < listOrderDetail.Count; j++)
+                {
                     if (listOrderDetail.ElementAt(j).OrderStatus.Equals("Pending"))
                     {
-                        ph.OrderDetail(listOrderDetail.ElementAt(j).ImgUrl, listOrderDetail.ElementAt(j).ProductName, "check.png", "processing.png", listOrderDetail.ElementAt(j).UnitPrice.ToString(), listOrderDetail.ElementAt(j).Specs.ToString());
+                        ph.OrderDetail(listOrderDetail.ElementAt(j).ImgUrl, listOrderDetail.ElementAt(j).ProductName, "check.png", "processing.png", listOrderDetail.ElementAt(j).Specs.ToString(), listOrderDetail.ElementAt(j).UnitPrice.ToString(), listOrderDetail.ElementAt(j).Quantity);
                     }
                     else
                     {
-                        ph.OrderDetail(listOrderDetail.ElementAt(j).ImgUrl, listOrderDetail.ElementAt(j).ProductName, "check.png", "check.png", listOrderDetail.ElementAt(j).UnitPrice.ToString(), listOrderDetail.ElementAt(j).Specs.ToString());
+                        ph.OrderDetail(listOrderDetail.ElementAt(j).ImgUrl, listOrderDetail.ElementAt(j).ProductName, "check.png", "check.png", listOrderDetail.ElementAt(j).Specs.ToString(), listOrderDetail.ElementAt(j).UnitPrice.ToString(), listOrderDetail.ElementAt(j).Quantity);
                     }
                 }
                 ph.Dock = DockStyle.Top;

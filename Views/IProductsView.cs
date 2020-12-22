@@ -9,7 +9,9 @@ namespace ProjectCsharp.Views
 {
     public interface IProductsView : IView
     {
-        List<OrderDetailModel> CartProducts { get; set; }
+        string searchProduct { get; }
+        int BrandID { get; }
+        List<ProductModel> CartProducts { get; set; }
         List<ProductModel> Products { set; }
     }
 }
